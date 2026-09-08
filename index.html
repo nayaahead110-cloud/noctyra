@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Noctyra — مانجا وويب تون</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #08080b;
+      color: #f1f1f1;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #0d0d11;
+      border-bottom: 1px solid #202027;
+      padding: 22px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 4px;
+    }
+
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      margin-right: 25px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    .hero {
+      min-height: 430px;
+      padding: 100px 7%;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(circle at 20% 50%, #27202f 0%, transparent 35%),
+        linear-gradient(135deg, #0c0b10, #08080b);
+    }
+
+    .hero-content {
+      max-width: 650px;
+    }
+
+    .hero h1 {
+      font-size: 55px;
+      letter-spacing: 8px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: #aaa;
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .button {
+      display: inline-block;
+      background: #f1f1f1;
+      color: #08080b;
+      padding: 13px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: #ccc;
+    }
+
+    section {
+      padding: 55px 7%;
+    }
+
+    .section-title {
+      font-size: 27px;
+      margin-bottom: 30px;
+    }
+
+    .search {
+      width: 100%;
+      max-width: 500px;
+      padding: 15px;
+      margin-bottom: 35px;
+      background: #111116;
+      border: 1px solid #292932;
+      border-radius: 8px;
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: #111116;
+      border: 1px solid #202027;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #44444f;
+    }
+
+    .cover {
+      height: 250px;
+      background:
+        linear-gradient(145deg, #25212d, #101014);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+
+    .card-info {
+      padding: 17px;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #777;
+      font-size: 13px;
+    }
+
+    footer {
+      border-top: 1px solid #202027;
+      padding: 30px 7%;
+      text-align: center;
+      color: #666;
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        min-height: 380px;
+        padding: 70px 7%;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .cover {
+        height: 210px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">NOCTYRA</div>
+
+    <nav>
+      <a href="#">الرئيسية</a>
+      <a href="#library">المكتبة</a>
+      <a href="#about">عن الموقع</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>NOCTYRA</h1>
+
+        <p>
+          حيث تبدأ الحكايات التي لا تنتهي مع الظلام.
+          اكتشف عالمًا من المانجا والويب تون والقصص الغامضة.
+        </p>
+
+        <a href="#library" class="button">استكشف المكتبة</a>
+      </div>
+    </section>
+
+    <section id="library">
+
+      <h2 class="section-title">المكتبة</h2>
+
+      <input
+        type="text"
+        id="search"
+        class="search"
+        placeholder="ابحث عن عمل..."
+      >
+
+      <div class="grid" id="libraryGrid">
+
+        <div class="card">
+          <div class="cover">NOCTYRA</div>
+          <div class="card-info">
+            <h3>العمل الأول</h3>
+            <p>رعب نفسي • غموض</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cover">NOCTYRA</div>
+          <div class="card-info">
+            <h3>العمل الثاني</h3>
+            <p>دراما • غموض</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cover">NOCTYRA</div>
+          <div class="card-info">
+            <h3>العمل الثالث</h3>
+            <p>فانتازيا • رعب</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cover">NOCTYRA</div>
+          <div class="card-info">
+            <h3>العمل الرابع</h3>
+            <p>غموض • نفسي</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">عن Noctyra</h2>
+
+      <p style="color:#888; line-height:2;">
+        Noctyra منصة لقراءة واستكشاف المانجا والويب تون،
+        بتصميم داكن وبسيط يركز على تجربة القراءة.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 NOCTYRA — All Rights Reserved
+  </footer>
+
+  <script>
+    const search = document.getElementById("search");
+    const cards = document.querySelectorAll(".card");
+
+    search.addEventListener("input", function () {
+      const value = this.value.toLowerCase();
+
+      cards.forEach(card => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+
+        if (title.includes(value)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
