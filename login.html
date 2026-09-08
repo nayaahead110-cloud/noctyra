@@ -1,484 +1,298 @@
 <!DOCTYPE html><html lang="ar" dir="rtl"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>تسجيل الدخول — Noctyra</title>  <style>
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html,
-    body {
-      min-height: 100%;
-    }
-
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(
-          circle at 50% 35%,
-          rgba(78, 52, 105, 0.25),
-          transparent 32%
-        ),
-        radial-gradient(
-          circle at 15% 80%,
-          rgba(52, 40, 75, 0.12),
-          transparent 30%
-        ),
-        #07070a;
-
-      color: #eeeeee;
-      font-family: Arial, sans-serif;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 30px 20px;
-
-      overflow: hidden;
-      position: relative;
-    }
-
-
-    /* زخارف الخلفية */
-
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      width: 260px;
-      height: 260px;
-      border: 1px solid rgba(130, 98, 160, 0.08);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    body::before {
-      top: -150px;
-      right: -120px;
-    }
-
-    body::after {
-      bottom: -150px;
-      left: -120px;
-    }
-
-
-    .decoration {
-      position: fixed;
-      color: rgba(160, 130, 190, 0.28);
-      font-size: 13px;
-      pointer-events: none;
-    }
-
-    .decoration.one {
-      top: 18%;
-      right: 12%;
-    }
-
-    .decoration.two {
-      bottom: 20%;
-      left: 13%;
-    }
-
-    .decoration.three {
-      top: 28%;
-      left: 18%;
-      font-size: 8px;
-    }
-
-    .decoration.four {
-      bottom: 30%;
-      right: 17%;
-      font-size: 8px;
-    }
-
-
-    .login-container {
-      width: 100%;
-      max-width: 440px;
-      position: relative;
-      z-index: 2;
-    }
-
-
-    /* الشعار */
-
-    .brand {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
-    .brand-name {
-      font-size: 32px;
-      font-weight: bold;
-      letter-spacing: 8px;
-    }
-
-    .brand-name span {
-      color: #8d6bb5;
-    }
-
-    .brand-line {
-      width: 45px;
-      height: 1px;
-      background: #624a78;
-      margin: 14px auto 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>تسجيل الدخول — Noctyra</title><style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% 35%, #21172c 0%, #0b0a0e 45%, #060608 100%);
+  color: #eee;
+  font-family: Arial, sans-serif;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 430px;
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 8px;
+}
+
+.logo span {
+  color: #9b72bd;
+}
+
+.line {
+  width: 45px;
+  height: 1px;
+  background: #76548f;
+  margin: 14px auto 0;
+}
+
+.login-box {
+  position: relative;
+
+  background: rgba(15, 14, 19, 0.96);
+
+  border: 1px solid #29242f;
+  border-radius: 10px;
+
+  padding: 40px 30px;
+
+  box-shadow: 0 25px 70px rgba(0,0,0,.5);
+}
+
+.corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  opacity: .6;
+}
+
+.top-right {
+  top: 12px;
+  right: 12px;
+  border-top: 1px solid #8b68a5;
+  border-right: 1px solid #8b68a5;
+}
+
+.top-left {
+  top: 12px;
+  left: 12px;
+  border-top: 1px solid #8b68a5;
+  border-left: 1px solid #8b68a5;
+}
+
+.bottom-right {
+  bottom: 12px;
+  right: 12px;
+  border-bottom: 1px solid #8b68a5;
+  border-right: 1px solid #8b68a5;
+}
+
+.bottom-left {
+  bottom: 12px;
+  left: 12px;
+  border-bottom: 1px solid #8b68a5;
+  border-left: 1px solid #8b68a5;
+}
+
+h1 {
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #77727d;
+  font-size: 13px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  color: #bdb8c2;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+
+  background: #09090c;
+  color: white;
+
+  border: 1px solid #2b2730;
+  border-radius: 6px;
+
+  outline: none;
+  font-size: 14px;
+}
+
+input:focus {
+  border-color: #805da0;
+}
 
+button {
+  width: 100%;
+  padding: 14px;
 
-    /* الصندوق */
+  background: #eee;
+  color: #09090c;
 
-    .login-box {
-      position: relative;
+  border: 1px solid #eee;
+  border-radius: 6px;
+
+  font-size: 14px;
+  font-weight: bold;
 
-      background: rgba(16, 16, 21, 0.92);
+  cursor: pointer;
+}
 
-      border: 1px solid #27232d;
-      border-radius: 10px;
+.divider {
+  text-align: center;
+  color: #55515b;
+  font-size: 12px;
+  margin: 25px 0;
+}
 
-      padding: 42px 34px;
+.create {
+  text-align: center;
+  color: #77727d;
+  font-size: 13px;
+}
 
-      box-shadow:
-        0 25px 70px rgba(0, 0, 0, 0.45),
-        0 0 50px rgba(77, 53, 100, 0.08);
-    }
+.create a {
+  color: #ad8bc2;
+  text-decoration: none;
+}
 
+.back {
+  display: block;
+  text-align: center;
 
-    .corner {
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-color: #76588d;
-      opacity: 0.45;
-    }
+  color: #66616b;
+  text-decoration: none;
 
-    .corner.top-right {
-      top: 13px;
-      right: 13px;
-      border-top: 1px solid;
-      border-right: 1px solid;
-    }
+  font-size: 12px;
+  margin-top: 25px;
+}
 
-    .corner.top-left {
-      top: 13px;
-      left: 13px;
-      border-top: 1px solid;
-      border-left: 1px solid;
-    }
+.decor {
+  position: fixed;
+  color: #8b68a5;
+  opacity: .35;
+  pointer-events: none;
+}
 
-    .corner.bottom-right {
-      bottom: 13px;
-      right: 13px;
-      border-bottom: 1px solid;
-      border-right: 1px solid;
-    }
+.d1 {
+  top: 20%;
+  right: 12%;
+}
 
-    .corner.bottom-left {
-      bottom: 13px;
-      left: 13px;
-      border-bottom: 1px solid;
-      border-left: 1px solid;
-    }
+.d2 {
+  bottom: 20%;
+  left: 12%;
+}
 
+@media (max-width: 500px) {
 
-    .login-title {
-      text-align: center;
-      font-size: 25px;
-      margin-bottom: 8px;
-    }
+  .login-box {
+    padding: 35px 22px;
+  }
 
-    .subtitle {
-      text-align: center;
-      color: #777781;
-      font-size: 13px;
-      margin-bottom: 32px;
-    }
+  .logo {
+    font-size: 26px;
+    letter-spacing: 6px;
+  }
 
+}
 
-    /* النموذج */
+</style></head><body><div class="decor d1">✦</div>
+<div class="decor d2">✧</div><main class="login-container">  <div class="brand"><div class="logo">
+  NOCTYRA<span>.</span>
+</div>
 
-    .form-group {
-      margin-bottom: 20px;
-    }
+<div class="line"></div>
 
-    label {
-      display: block;
-      color: #b9b6bf;
-      font-size: 13px;
-      margin-bottom: 8px;
-    }
+  </div>  <section class="login-box"><div class="corner top-right"></div>
+<div class="corner top-left"></div>
+<div class="corner bottom-right"></div>
+<div class="corner bottom-left"></div>
 
-    input {
-      width: 100%;
 
-      padding: 14px;
+<h1>
+  تسجيل الدخول
+</h1>
 
-      background: #0a0a0e;
-      color: #eeeeee;
+<p class="subtitle">
+  ادخل إلى عالم Noctyra
+</p>
 
-      border: 1px solid #2a2730;
-      border-radius: 6px;
 
-      outline: none;
+<form>
 
-      font-size: 14px;
+  <div class="form-group">
 
-      transition: 0.25s;
-    }
+    <label for="email">
+      البريد الإلكتروني
+    </label>
 
-    input::placeholder {
-      color: #4e4c54;
-    }
+    <input
+      id="email"
+      type="email"
+      placeholder="example@email.com"
+      required
+    >
 
-    input:focus {
-      border-color: #705489;
-      box-shadow: 0 0 0 3px rgba(112, 84, 137, 0.08);
-    }
-
-
-    /* زر الدخول */
-
-    .login-btn {
-      width: 100%;
-
-      padding: 14px;
-
-      margin-top: 5px;
-
-      background: #eeeeee;
-      color: #09090c;
-
-      border: 1px solid #eeeeee;
-      border-radius: 6px;
-
-      font-size: 14px;
-      font-weight: bold;
-
-      cursor: pointer;
-
-      transition: 0.25s;
-    }
-
-    .login-btn:hover {
-      background: transparent;
-      color: #eeeeee;
-    }
-
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      margin: 28px 0 20px;
-
-      color: #4e4c54;
-      font-size: 11px;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: "";
-      height: 1px;
-      flex: 1;
-      background: #25232a;
-    }
-
-
-    .create-account {
-      text-align: center;
-      color: #777781;
-      font-size: 13px;
-    }
-
-    .create-account a {
-      color: #b29ac5;
-      transition: 0.2s;
-    }
-
-    .create-account a:hover {
-      color: #eeeeee;
-    }
-
-
-    .back {
-      display: block;
-
-      text-align: center;
-
-      color: #666670;
-
-      font-size: 12px;
-
-      margin-top: 25px;
-
-      transition: 0.2s;
-    }
-
-    .back:hover {
-      color: #eeeeee;
-    }
-
-
-    .notice {
-      margin-top: 18px;
-
-      padding: 11px;
-
-      border: 1px solid #222229;
-      border-radius: 5px;
-
-      color: #55545c;
-
-      font-size: 10px;
-
-      line-height: 1.8;
-
-      text-align: center;
-    }
-
-
-    /* الجوال */
-
-    @media (max-width: 500px) {
-
-      body {
-        padding: 20px 15px;
-      }
-
-      .brand-name {
-        font-size: 27px;
-        letter-spacing: 6px;
-      }
-
-      .login-box {
-        padding: 38px 23px;
-      }
-
-      .decoration.one {
-        right: 5%;
-      }
-
-      .decoration.two {
-        left: 5%;
-      }
-
-    }
-
-  </style></head><body>  <!-- زخارف بسيطة --><span class="decoration one">✦</span>
-<span class="decoration two">✧</span>
-<span class="decoration three">•</span>
-<span class="decoration four">•</span>
-
-  <main class="login-container"><!-- الشعار -->
-
-<div class="brand">
-
-  <div class="brand-name">
-    NOCTYRA<span>.</span>
   </div>
 
-  <div class="brand-line"></div>
 
+  <div class="form-group">
+
+    <label for="password">
+      كلمة المرور
+    </label>
+
+    <input
+      id="password"
+      type="password"
+      placeholder="••••••••"
+      required
+    >
+
+  </div>
+
+
+  <button type="submit">
+    تسجيل الدخول
+  </button>
+
+</form>
+
+
+<div class="divider">
+  ✦
 </div>
 
 
-<!-- تسجيل الدخول -->
-
-<section class="login-box">
-
-
-  <span class="corner top-right"></span>
-  <span class="corner top-left"></span>
-  <span class="corner bottom-right"></span>
-  <span class="corner bottom-left"></span>
-
-
-  <h1 class="login-title">
-    تسجيل الدخول
-  </h1>
-
-  <p class="subtitle">
-    ادخل إلى عالم Noctyra
-  </p>
-
-
-  <form>
-
-
-    <div class="form-group">
-
-      <label for="email">
-        البريد الإلكتروني
-      </label>
-
-      <input
-        type="email"
-        id="email"
-        placeholder="example@email.com"
-        required
-      >
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label for="password">
-        كلمة المرور
-      </label>
-
-      <input
-        type="password"
-        id="password"
-        placeholder="••••••••"
-        required
-      >
-
-    </div>
-
-
-    <button
-      type="submit"
-      class="login-btn"
-    >
-      تسجيل الدخول
-    </button>
-
-
-  </form>
-
-
-  <div class="divider">
-    أو
-  </div>
-
-
-  <div class="create-account">
-    ليس لديك حساب؟
-    <a href="#">
-      إنشاء حساب
-    </a>
-  </div>
-
-
-  <div class="notice">
-    نظام الحسابات سيتم تفعيله لاحقًا.
-  </div>
-
-
-  <a
-    href="index.html"
-    class="back"
-  >
-    ← العودة إلى الرئيسية
+<div class="create">
+  ليس لديك حساب؟
+  <a href="#">
+    إنشاء حساب
   </a>
+</div>
 
 
-</section>
+<a href="index.html" class="back">
+  ← العودة إلى الرئيسية
+</a>
 
-  </main></body>
+  </section></main></body>
 </html>
