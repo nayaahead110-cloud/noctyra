@@ -6,295 +6,351 @@
 
   <title>Noctyra — مانجا وويب تون</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background: #08080b;
-      color: #f1f1f1;
-      font-family: Arial, sans-serif;
-    }
-
-    header {
-      background: #0d0d11;
-      border-bottom: 1px solid #202027;
-      padding: 22px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      letter-spacing: 4px;
-    }
-
-    nav a {
-      color: #aaa;
-      text-decoration: none;
-      margin-right: 25px;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: white;
-    }
-
-    .hero {
-      min-height: 430px;
-      padding: 100px 7%;
-      display: flex;
-      align-items: center;
-      background:
-        radial-gradient(circle at 20% 50%, #27202f 0%, transparent 35%),
-        linear-gradient(135deg, #0c0b10, #08080b);
-    }
-
-    .hero-content {
-      max-width: 650px;
-    }
-
-    .hero h1 {
-      font-size: 55px;
-      letter-spacing: 8px;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      color: #aaa;
-      font-size: 18px;
-      line-height: 1.8;
-      margin-bottom: 30px;
-    }
-
-    .button {
-      display: inline-block;
-      background: #f1f1f1;
-      color: #08080b;
-      padding: 13px 28px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-      background: #ccc;
-    }
-
-    section {
-      padding: 55px 7%;
-    }
-
-    .section-title {
-      font-size: 27px;
-      margin-bottom: 30px;
-    }
-
-    .search {
-      width: 100%;
-      max-width: 500px;
-      padding: 15px;
-      margin-bottom: 35px;
-      background: #111116;
-      border: 1px solid #292932;
-      border-radius: 8px;
-      color: white;
-      outline: none;
-      font-size: 15px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 22px;
-    }
-
-    .card {
-      background: #111116;
-      border: 1px solid #202027;
-      border-radius: 10px;
-      overflow: hidden;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: #44444f;
-    }
-
-    .cover {
-      height: 250px;
-      background:
-        linear-gradient(145deg, #25212d, #101014);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #777;
-      font-size: 20px;
-      letter-spacing: 2px;
-    }
-
-    .card-info {
-      padding: 17px;
-    }
-
-    .card h3 {
-      margin-bottom: 8px;
-    }
-
-    .card p {
-      color: #777;
-      font-size: 13px;
-    }
-
-    footer {
-      border-top: 1px solid #202027;
-      padding: 30px 7%;
-      text-align: center;
-      color: #666;
-    }
-
-    @media (max-width: 600px) {
-      .hero {
-        min-height: 380px;
-        padding: 70px 7%;
-      }
-
-      .hero h1 {
-        font-size: 38px;
-      }
-
-      nav {
-        display: none;
-      }
-
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-      }
-
-      .cover {
-        height: 210px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <header>
-    <div class="logo">NOCTYRA</div>
+<header class="header">
+  <nav class="nav">
 
-    <nav>
-      <a href="#">الرئيسية</a>
+    <a href="index.html" class="logo">
+      NOCTYRA<span>.</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
       <a href="#library">المكتبة</a>
-      <a href="#about">عن الموقع</a>
-    </nav>
-  </header>
+      <a href="#about">عن Noctyra</a>
+      <a href="login.html">تسجيل الدخول</a>
+    </div>
 
-  <main>
+    <button class="menu-btn">☰</button>
 
-    <section class="hero">
-      <div class="hero-content">
-        <h1>NOCTYRA</h1>
+  </nav>
+</header>
 
-        <p>
-          حيث تبدأ الحكايات التي لا تنتهي مع الظلام.
-          اكتشف عالمًا من المانجا والويب تون والقصص الغامضة.
-        </p>
 
-        <a href="#library" class="button">استكشف المكتبة</a>
+<main>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="hero-small">
+        ENTER THE DARK
       </div>
-    </section>
 
-    <section id="library">
+      <h1>NOCTYRA</h1>
 
-      <h2 class="section-title">المكتبة</h2>
+      <p>
+        حيث تبدأ الحكايات التي لا تنتهي مع الظلام.
+        اكتشف عالمًا من المانجا والويب تون والقصص الغامضة.
+      </p>
+
+      <a href="#library" class="btn">
+        استكشف المكتبة
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- LIBRARY -->
+
+  <section class="container" id="library">
+
+    <div class="section-head">
+
+      <div>
+        <h2 class="section-title">المكتبة</h2>
+        <p class="section-subtitle">
+          اكتشف أحدث الأعمال داخل Noctyra
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
 
       <input
-        type="text"
+        type="search"
         id="search"
-        class="search"
-        placeholder="ابحث عن عمل..."
+        placeholder="ابحث عن مانجا أو ويب تون..."
       >
 
-      <div class="grid" id="libraryGrid">
+    </div>
 
-        <div class="card">
-          <div class="cover">NOCTYRA</div>
-          <div class="card-info">
-            <h3>العمل الأول</h3>
-            <p>رعب نفسي • غموض</p>
-          </div>
-        </div>
 
-        <div class="card">
-          <div class="cover">NOCTYRA</div>
-          <div class="card-info">
-            <h3>العمل الثاني</h3>
-            <p>دراما • غموض</p>
-          </div>
-        </div>
+    <!-- FILTERS -->
 
-        <div class="card">
-          <div class="cover">NOCTYRA</div>
-          <div class="card-info">
-            <h3>العمل الثالث</h3>
-            <p>فانتازيا • رعب</p>
-          </div>
-        </div>
+    <div class="filters">
 
-        <div class="card">
-          <div class="cover">NOCTYRA</div>
-          <div class="card-info">
-            <h3>العمل الرابع</h3>
-            <p>غموض • نفسي</p>
+      <button class="filter active" data-filter="all">
+        الكل
+      </button>
+
+      <button class="filter" data-filter="رعب">
+        رعب
+      </button>
+
+      <button class="filter" data-filter="غموض">
+        غموض
+      </button>
+
+      <button class="filter" data-filter="دراما">
+        دراما
+      </button>
+
+      <button class="filter" data-filter="فانتازيا">
+        فانتازيا
+      </button>
+
+    </div>
+
+
+    <!-- MANGA GRID -->
+
+    <div class="grid" id="libraryGrid">
+
+
+      <article class="card" data-category="رعب غموض">
+
+        <a href="manga.html">
+
+          <div class="cover">
+            NOCTYRA
           </div>
-        </div>
+
+          <div class="card-info">
+
+            <h3 class="card-title">
+              العمل الأول
+            </h3>
+
+            <p class="card-meta">
+              رعب • غموض
+            </p>
+
+          </div>
+
+        </a>
+
+      </article>
+
+
+      <article class="card" data-category="دراما غموض">
+
+        <a href="manga.html">
+
+          <div class="cover">
+            NOCTYRA
+          </div>
+
+          <div class="card-info">
+
+            <h3 class="card-title">
+              العمل الثاني
+            </h3>
+
+            <p class="card-meta">
+              دراما • غموض
+            </p>
+
+          </div>
+
+        </a>
+
+      </article>
+
+
+      <article class="card" data-category="فانتازيا رعب">
+
+        <a href="manga.html">
+
+          <div class="cover">
+            NOCTYRA
+          </div>
+
+          <div class="card-info">
+
+            <h3 class="card-title">
+              العمل الثالث
+            </h3>
+
+            <p class="card-meta">
+              فانتازيا • رعب
+            </p>
+
+          </div>
+
+        </a>
+
+      </article>
+
+
+      <article class="card" data-category="غموض">
+
+        <a href="manga.html">
+
+          <div class="cover">
+            NOCTYRA
+          </div>
+
+          <div class="card-info">
+
+            <h3 class="card-title">
+              العمل الرابع
+            </h3>
+
+            <p class="card-meta">
+              غموض • نفسي
+            </p>
+
+          </div>
+
+        </a>
+
+      </article>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- ABOUT -->
+
+  <section class="container" id="about">
+
+    <div class="section-head">
+
+      <div>
+
+        <h2 class="section-title">
+          عن Noctyra
+        </h2>
+
+        <p class="section-subtitle">
+          عالم من القصص خلف الظلام.
+        </p>
 
       </div>
-    </section>
 
-    <section id="about">
-      <h2 class="section-title">عن Noctyra</h2>
+    </div>
 
-      <p style="color:#888; line-height:2;">
-        Noctyra منصة لقراءة واستكشاف المانجا والويب تون،
-        بتصميم داكن وبسيط يركز على تجربة القراءة.
-      </p>
-    </section>
+    <p style="color:#888; max-width:700px;">
+      Noctyra منصة تهتم بالمانجا والويب تون،
+      وتجمع الأعمال في تجربة قراءة بسيطة وداكنة.
+    </p>
 
-  </main>
+  </section>
 
-  <footer>
-    © 2026 NOCTYRA — All Rights Reserved
-  </footer>
+</main>
 
-  <script>
-    const search = document.getElementById("search");
-    const cards = document.querySelectorAll(".card");
 
-    search.addEventListener("input", function () {
-      const value = this.value.toLowerCase();
+<!-- FOOTER -->
+
+<footer class="footer">
+
+  <div class="footer-logo">
+    NOCTYRA
+  </div>
+
+  <p>
+    © 2026 Noctyra. All Rights Reserved.
+  </p>
+
+</footer>
+
+
+<script>
+
+  const search = document.getElementById("search");
+
+  const cards = document.querySelectorAll(".card");
+
+  const filters = document.querySelectorAll(".filter");
+
+
+  /* SEARCH */
+
+  search.addEventListener("input", function () {
+
+    const value = this.value.toLowerCase();
+
+    cards.forEach(card => {
+
+      const title =
+        card.querySelector(".card-title")
+        .textContent
+        .toLowerCase();
+
+      const category =
+        card.dataset.category
+        .toLowerCase();
+
+      if (
+        title.includes(value) ||
+        category.includes(value)
+      ) {
+
+        card.style.display = "";
+
+      } else {
+
+        card.style.display = "none";
+
+      }
+
+    });
+
+  });
+
+
+  /* FILTERS */
+
+  filters.forEach(button => {
+
+    button.addEventListener("click", function () {
+
+      filters.forEach(btn =>
+        btn.classList.remove("active")
+      );
+
+      this.classList.add("active");
+
+      const filter =
+        this.dataset.filter;
 
       cards.forEach(card => {
-        const title = card.querySelector("h3").textContent.toLowerCase();
 
-        if (title.includes(value)) {
+        if (
+          filter === "all" ||
+          card.dataset.category.includes(filter)
+        ) {
+
           card.style.display = "";
+
         } else {
+
           card.style.display = "none";
+
         }
+
       });
+
     });
-  </script>
+
+  });
+
+</script>
 
 </body>
 </html>
