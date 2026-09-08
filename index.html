@@ -1,356 +1,183 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Noctyra — مانجا وويب تون</title>  <link rel="stylesheet" href="style.css">
+</head><body><header class="header">
+  <nav class="nav"><a href="index.html" class="logo">
+  NOCTYRA<span>.</span>
+</a>
 
-  <title>Noctyra — مانجا وويب تون</title>
+<div class="nav-links">
+  <a href="index.html">الرئيسية</a>
+  <a href="#library">المكتبة</a>
+  <a href="#about">عن Noctyra</a>
+  <a href="login.html">تسجيل الدخول</a>
+</div>
 
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<header class="header">
-  <nav class="nav">
-
-    <a href="index.html" class="logo">
-      NOCTYRA<span>.</span>
-    </a>
-
-    <div class="nav-links">
-      <a href="index.html">الرئيسية</a>
-      <a href="#library">المكتبة</a>
-      <a href="#about">عن Noctyra</a>
-      <a href="login.html">تسجيل الدخول</a>
-    </div>
-
-    <button class="menu-btn">☰</button>
+<button class="menu-btn">☰</button>
 
   </nav>
-</header>
+</header><main>  <!-- HERO -->  <section class="hero"><div class="hero-content">
 
-
-<main>
-
-  <!-- HERO -->
-
-  <section class="hero">
-
-    <div class="hero-content">
-
-      <div class="hero-small">
-        ENTER THE DARK
-      </div>
-
-      <h1>NOCTYRA</h1>
-
-      <p>
-        حيث تبدأ الحكايات التي لا تنتهي مع الظلام.
-        اكتشف عالمًا من المانجا والويب تون والقصص الغامضة.
-      </p>
-
-      <a href="#library" class="btn">
-        استكشف المكتبة
-      </a>
-
-    </div>
-
-  </section>
-
-
-  <!-- LIBRARY -->
-
-  <section class="container" id="library">
-
-    <div class="section-head">
-
-      <div>
-        <h2 class="section-title">المكتبة</h2>
-        <p class="section-subtitle">
-          اكتشف أحدث الأعمال داخل Noctyra
-        </p>
-      </div>
-
-    </div>
-
-
-    <!-- SEARCH -->
-
-    <div class="search-box">
-
-      <input
-        type="search"
-        id="search"
-        placeholder="ابحث عن مانجا أو ويب تون..."
-      >
-
-    </div>
-
-
-    <!-- FILTERS -->
-
-    <div class="filters">
-
-      <button class="filter active" data-filter="all">
-        الكل
-      </button>
-
-      <button class="filter" data-filter="رعب">
-        رعب
-      </button>
-
-      <button class="filter" data-filter="غموض">
-        غموض
-      </button>
-
-      <button class="filter" data-filter="دراما">
-        دراما
-      </button>
-
-      <button class="filter" data-filter="فانتازيا">
-        فانتازيا
-      </button>
-
-    </div>
-
-
-    <!-- MANGA GRID -->
-
-    <div class="grid" id="libraryGrid">
-
-
-      <article class="card" data-category="رعب غموض">
-
-        <a href="manga.html">
-
-          <div class="cover">
-            NOCTYRA
-          </div>
-
-          <div class="card-info">
-
-            <h3 class="card-title">
-              العمل الأول
-            </h3>
-
-            <p class="card-meta">
-              رعب • غموض
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
-
-
-      <article class="card" data-category="دراما غموض">
-
-        <a href="manga.html">
-
-          <div class="cover">
-            NOCTYRA
-          </div>
-
-          <div class="card-info">
-
-            <h3 class="card-title">
-              العمل الثاني
-            </h3>
-
-            <p class="card-meta">
-              دراما • غموض
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
-
-
-      <article class="card" data-category="فانتازيا رعب">
-
-        <a href="manga.html">
-
-          <div class="cover">
-            NOCTYRA
-          </div>
-
-          <div class="card-info">
-
-            <h3 class="card-title">
-              العمل الثالث
-            </h3>
-
-            <p class="card-meta">
-              فانتازيا • رعب
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
-
-
-      <article class="card" data-category="غموض">
-
-        <a href="manga.html">
-
-          <div class="cover">
-            NOCTYRA
-          </div>
-
-          <div class="card-info">
-
-            <h3 class="card-title">
-              العمل الرابع
-            </h3>
-
-            <p class="card-meta">
-              غموض • نفسي
-            </p>
-
-          </div>
-
-        </a>
-
-      </article>
-
-
-    </div>
-
-  </section>
-
-
-  <!-- ABOUT -->
-
-  <section class="container" id="about">
-
-    <div class="section-head">
-
-      <div>
-
-        <h2 class="section-title">
-          عن Noctyra
-        </h2>
-
-        <p class="section-subtitle">
-          عالم من القصص خلف الظلام.
-        </p>
-
-      </div>
-
-    </div>
-
-    <p style="color:#888; max-width:700px;">
-      Noctyra منصة تهتم بالمانجا والويب تون،
-      وتجمع الأعمال في تجربة قراءة بسيطة وداكنة.
-    </p>
-
-  </section>
-
-</main>
-
-
-<!-- FOOTER -->
-
-<footer class="footer">
-
-  <div class="footer-logo">
-    NOCTYRA
+  <div class="hero-small">
+    ENTER THE DARK
   </div>
 
+  <h1>NOCTYRA</h1>
+
   <p>
-    © 2026 Noctyra. All Rights Reserved.
+    حيث تبدأ الحكايات التي لا تنتهي مع الظلام.
+    <br>
+    عالم من المانجا والويب تون والقصص الغامضة.
   </p>
 
-</footer>
+  <a href="#library" class="btn">
+    استكشف المكتبة
+  </a>
+
+</div>
+
+  </section>  <!-- LIBRARY -->  <section class="container" id="library"><div class="section-head">
+
+  <div>
+    <h2 class="section-title">
+      المكتبة
+    </h2>
+
+    <p class="section-subtitle">
+      ستجد هنا جميع الأعمال المنشورة في Noctyra.
+    </p>
+  </div>
+
+</div>
 
 
-<script>
+<div class="empty-library">
 
-  const search = document.getElementById("search");
+  <div class="empty-icon">
+    ✦
+  </div>
 
-  const cards = document.querySelectorAll(".card");
+  <h3>
+    لا توجد أعمال حاليًا
+  </h3>
 
-  const filters = document.querySelectorAll(".filter");
+  <p>
+    سيتم نشر الأعمال هنا قريبًا.
+  </p>
 
+</div>
 
-  /* SEARCH */
+  </section>  <!-- ABOUT -->  <section class="container" id="about"><div class="section-head">
 
-  search.addEventListener("input", function () {
+  <div>
+    <h2 class="section-title">
+      عن Noctyra
+    </h2>
 
-    const value = this.value.toLowerCase();
+    <p class="section-subtitle">
+      عالم من القصص خلف الظلام.
+    </p>
 
-    cards.forEach(card => {
+  </div>
 
-      const title =
-        card.querySelector(".card-title")
-        .textContent
-        .toLowerCase();
-
-      const category =
-        card.dataset.category
-        .toLowerCase();
-
-      if (
-        title.includes(value) ||
-        category.includes(value)
-      ) {
-
-        card.style.display = "";
-
-      } else {
-
-        card.style.display = "none";
-
-      }
-
-    });
-
-  });
+</div>
 
 
-  /* FILTERS */
+<p class="about-text">
+  Noctyra منصة تهتم بالمانجا والويب تون،
+  وتهدف إلى تقديم تجربة قراءة بسيطة،
+  هادئة وداكنة تجمع محبي القصص المختلفة
+  في مكان واحد.
+</p>
 
-  filters.forEach(button => {
 
-    button.addEventListener("click", function () {
+<div class="admin-contact">
 
-      filters.forEach(btn =>
-        btn.classList.remove("active")
-      );
+  <span class="admin-label">
+    للتواصل مع الإدارة
+  </span>
 
-      this.classList.add("active");
+  <a
+    href="https://t.me/jixqv"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="btn"
+  >
+    @jixqv
+  </a>
 
-      const filter =
-        this.dataset.filter;
+</div>
 
-      cards.forEach(card => {
+  </section></main><!-- FOOTER --><footer class="footer">  <div class="footer-logo">
+    NOCTYRA
+  </div>  <p>
+    © 2026 Noctyra. All Rights Reserved.
+  </p></footer><style>
 
-        if (
-          filter === "all" ||
-          card.dataset.category.includes(filter)
-        ) {
+  .empty-library {
+    min-height: 260px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 30px;
+  }
 
-          card.style.display = "";
 
-        } else {
+  .empty-icon {
+    font-size: 28px;
+    color: #777;
+    margin-bottom: 15px;
+  }
 
-          card.style.display = "none";
 
-        }
+  .empty-library h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+  }
 
-      });
 
-    });
+  .empty-library p {
+    color: var(--muted);
+    margin: 0;
+  }
 
-  });
 
-</script>
+  .about-text {
+    color: var(--muted);
+    max-width: 700px;
+    line-height: 2;
+    margin-bottom: 30px;
+  }
 
-</body>
+
+  .admin-contact {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+
+  .admin-label {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+
+  @media (max-width: 600px) {
+
+    .admin-contact {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+  }
+
+</style></body>
 </html>
