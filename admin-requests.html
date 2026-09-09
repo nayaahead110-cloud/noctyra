@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>إدارة الطلبات | Noctyra</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #090909;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    header {
+      height: 75px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7%;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 4px;
+    }
+
+    .back {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back:hover {
+      color: #fff;
+    }
+
+    main {
+      width: 90%;
+      max-width: 1000px;
+      margin: 50px auto;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #777;
+      margin-bottom: 35px;
+    }
+
+    .message {
+      background: #111;
+      border: 1px solid #252525;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      color: #aaa;
+      display: none;
+    }
+
+    .request {
+      background: #101010;
+      border: 1px solid #242424;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    .request-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .request-title {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .status {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .pending {
+      background: #29220d;
+      color: #d8b65a;
+    }
+
+    .approved {
+      background: #102716;
+      color: #65c879;
+    }
+
+    .rejected {
+      background: #2b1111;
+      color: #d96c6c;
+    }
+
+    .info {
+      display: grid;
+      gap: 9px;
+      color: #aaa;
+      line-height: 1.7;
+    }
+
+    .info strong {
+      color: #eee;
+    }
+
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .category {
+      border: 1px solid #303030;
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    button {
+      border: none;
+      padding: 11px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    .approve {
+      background: #eee;
+      color: #080808;
+    }
+
+    .approve:hover {
+      background: #fff;
+      transform: translateY(-1px);
+    }
+
+    .reject {
+      background: #241010;
+      color: #df7777;
+      border: 1px solid #4a1d1d;
+    }
+
+    .reject:hover {
+      background: #321313;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 70px 20px;
+      color: #666;
+      border: 1px dashed #292929;
+      border-radius: 14px;
+    }
+
+    .loading {
+      text-align: center;
+      color: #777;
+      padding: 40px;
+    }
+
+    footer {
+      text-align: center;
+      color: #444;
+      padding: 40px 15px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 0 5%;
+      }
+
+      main {
+        width: 92%;
+        margin-top: 35px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .request-header {
+        flex-direction: column;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">NOCTYRA.</div>
+    <a class="back" href="index.html">العودة للموقع</a>
+  </header>
+
+  <main>
+
+    <h1>إدارة الطلبات</h1>
+    <p class="subtitle">طلبات إضافة الأعمال المرسلة من أعضاء Noctyra</p>
+
+    <div id="message" class="message"></div>
+
+    <div id="requests">
+      <div class="loading">جاري تحميل الطلبات...</div>
+    </div>
+
+  </main>
+
+  <footer>
+    © 2026 Noctyra. All Rights Reserved.
+  </footer>
+
+
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    import {
+      getFirestore,
+      collection,
+      getDocs,
+      doc,
+      updateDoc,
+      query,
+      orderBy
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAvVSfxR6ecsWU2lGUlHDJgdH3hktrZjGY",
+      authDomain: "noctyra-4b71b.firebaseapp.com",
+      projectId: "noctyra-4b71b",
+      storageBucket: "noctyra-4b71b.firebasestorage.app",
+      messagingSenderId: "240877556023",
+      appId: "1:240877556023:web:99529c91607902b8414ab2",
+      measurementId: "G-DYP839YDNK"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const ADMIN_EMAIL = "nayaahead110@gmail.com";
+
+    const requestsContainer = document.getElementById("requests");
+    const message = document.getElementById("message");
+
+
+    function showMessage(text) {
+      message.textContent = text;
+      message.style.display = "block";
+    }
+
+
+    onAuthStateChanged(auth, async (user) => {
+
+      if (!user) {
+        showMessage("يجب تسجيل الدخول أولًا.");
+
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 1500);
+
+        return;
+      }
+
+
+      if (user.email !== ADMIN_EMAIL) {
+        showMessage("ليس لديك صلاحية للوصول إلى لوحة الإدارة.");
+
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1800);
+
+        return;
+      }
+
+
+      loadRequests();
+
+    });
+
+
+    async function loadRequests() {
+
+      try {
+
+        const requestsQuery = query(
+          collection(db, "requests"),
+          orderBy("createdAt", "desc")
+        );
+
+        const snapshot = await getDocs(requestsQuery);
+
+        requestsContainer.innerHTML = "";
+
+        if (snapshot.empty) {
+
+          requestsContainer.innerHTML = `
+            <div class="empty">
+              لا توجد طلبات حاليًا.
+            </div>
+          `;
+
+          return;
+        }
+
+
+        snapshot.forEach((requestDoc) => {
+
+          const data = requestDoc.data();
+
+          const requestElement = document.createElement("div");
+
+          requestElement.className = "request";
+
+          const status = data.status || "pending";
+
+          let statusText = "قيد المراجعة";
+
+          if (status === "approved") {
+            statusText = "تمت الموافقة";
+          }
+
+          if (status === "rejected") {
+            statusText = "مرفوض";
+          }
+
+
+          const categories = Array.isArray(data.categories)
+            ? data.categories
+            : [];
+
+
+          requestElement.innerHTML = `
+
+            <div class="request-header">
+
+              <div class="request-title">
+                ${escapeHTML(data.englishName || "بدون اسم")}
+              </div>
+
+              <div class="status ${status}">
+                ${statusText}
+              </div>
+
+            </div>
+
+
+            <div class="info">
+
+              <div>
+                <strong>الاسم الأصلي:</strong>
+                ${escapeHTML(data.originalName || "غير محدد")}
+              </div>
+
+
+              <div>
+                <strong>الوصف:</strong>
+                ${escapeHTML(data.description || "لا يوجد وصف")}
+              </div>
+
+
+              <div>
+                <strong>التقييم:</strong>
+                ${data.rating ? "★".repeat(Number(data.rating)) : "غير محدد"}
+              </div>
+
+
+              <div>
+                <strong>التصنيفات:</strong>
+
+                <div class="categories">
+
+                  ${
+                    categories.length
+                    ? categories.map(category =>
+                        `<span class="category">${escapeHTML(category)}</span>`
+                      ).join("")
+                    : `<span class="category">لا توجد تصنيفات</span>`
+                  }
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            ${
+              status === "pending"
+              ? `
+                <div class="actions">
+
+                  <button
+                    class="approve"
+                    data-id="${requestDoc.id}">
+                    ✓ الموافقة
+                  </button>
+
+                  <button
+                    class="reject"
+                    data-id="${requestDoc.id}">
+                    ✕ رفض
+                  </button>
+
+                </div>
+              `
+              : ""
+            }
+
+          `;
+
+
+          requestsContainer.appendChild(requestElement);
+
+
+          const approveButton =
+            requestElement.querySelector(".approve");
+
+          const rejectButton =
+            requestElement.querySelector(".reject");
+
+
+          if (approveButton) {
+
+            approveButton.addEventListener("click", () => {
+              updateRequest(requestDoc.id, "approved");
+            });
+
+          }
+
+
+          if (rejectButton) {
+
+            rejectButton.addEventListener("click", () => {
+              updateRequest(requestDoc.id, "rejected");
+            });
+
+          }
+
+        });
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        requestsContainer.innerHTML = `
+          <div class="empty">
+            حدث خطأ أثناء تحميل الطلبات.
+            <br><br>
+            ${escapeHTML(error.message)}
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    async function updateRequest(id, newStatus) {
+
+      const action =
+        newStatus === "approved"
+          ? "الموافقة على"
+          : "رفض";
+
+
+      const confirmed =
+        confirm(`هل أنتِ متأكدة من ${action} هذا الطلب؟`);
+
+
+      if (!confirmed) return;
+
+
+      try {
+
+        await updateDoc(
+          doc(db, "requests", id),
+          {
+            status: newStatus
+          }
+        );
+
+
+        await loadRequests();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          "تعذر تحديث الطلب: " + error.message
+        );
+
+      }
+
+    }
+
+
+    function escapeHTML(value) {
+
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
+
+  </script>
+
+</body>
+</html>
