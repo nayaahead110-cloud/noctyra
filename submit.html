@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>طلب إضافة عمل | Noctyra</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #09090c;
+      color: #eeeeee;
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 9, 12, 0.94);
+      border-bottom: 1px solid #222229;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      max-width: 900px;
+      margin: auto;
+      min-height: 70px;
+      padding: 0 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 4px;
+    }
+
+    .logo span {
+      color: #8d6bb5;
+    }
+
+    .back {
+      color: #9999a3;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    .back:hover {
+      color: #ffffff;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      padding: 70px 24px 100px;
+    }
+
+    .page-head {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .page-head small {
+      display: block;
+      color: #71548f;
+      font-size: 11px;
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+
+    .page-head h1 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .page-head p {
+      color: #777781;
+      font-size: 14px;
+    }
+
+    .form-card {
+      background: #101015;
+      border: 1px solid #25222d;
+      border-radius: 10px;
+      padding: 35px;
+    }
+
+    .field {
+      margin-bottom: 25px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .hint {
+      color: #666670;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      background: #09090c;
+      border: 1px solid #292631;
+      border-radius: 7px;
+      padding: 13px 14px;
+      color: #eeeeee;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #8d6bb5;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* صورة العمل */
+
+    .cover-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cover-preview {
+      width: 190px;
+      height: 270px;
+      background: #09090c;
+      border: 1px dashed #393341;
+      border-radius: 9px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+      margin-bottom: 15px;
+
+      color: #666670;
+      text-align: center;
+      font-size: 13px;
+      padding: 15px;
+    }
+
+    .cover-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .upload-button {
+      display: inline-block;
+      background: #eeeeee;
+      color: #09090c;
+      border: 1px solid #eeeeee;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .upload-button:hover {
+      background: transparent;
+      color: #eeeeee;
+    }
+
+    #coverInput {
+      display: none;
+    }
+
+    /* التصنيفات */
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+    }
+
+    .category {
+      position: relative;
+    }
+
+    .category input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .category label {
+      display: block;
+      background: #09090c;
+      border: 1px solid #292631;
+      border-radius: 6px;
+      padding: 10px;
+      text-align: center;
+      color: #9999a3;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin: 0;
+    }
+
+    .category input:checked + label {
+      border-color: #8d6bb5;
+      color: #eeeeee;
+      background: #17121e;
+    }
+
+    /* التقييم */
+
+    .rating {
+      display: flex;
+      direction: ltr;
+      gap: 5px;
+      justify-content: flex-start;
+    }
+
+    .rating input {
+      display: none;
+    }
+
+    .rating label {
+      font-size: 32px;
+      color: #44414b;
+      cursor: pointer;
+      transition: 0.15s;
+      margin: 0;
+    }
+
+    .rating label:hover,
+    .rating label:hover ~ label,
+    .rating input:checked ~ label {
+      color: #b08ad8;
+    }
+
+    /* الزر */
+
+    .submit-button {
+      width: 100%;
+      padding: 14px;
+      background: #eeeeee;
+      color: #09090c;
+      border: 1px solid #eeeeee;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 10px;
+    }
+
+    .submit-button:hover {
+      background: transparent;
+      color: #eeeeee;
+    }
+
+    .submit-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .message {
+      display: none;
+      padding: 14px;
+      border-radius: 6px;
+      margin-top: 18px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .message.success {
+      display: block;
+      background: #101a14;
+      border: 1px solid #294434;
+      color: #9fc5aa;
+    }
+
+    .message.error {
+      display: block;
+      background: #1a1012;
+      border: 1px solid #49262b;
+      color: #d99aa2;
+    }
+
+    .footer {
+      border-top: 1px solid #222229;
+      padding: 35px 20px;
+      text-align: center;
+      color: #666670;
+      font-size: 12px;
+    }
+
+    @media (max-width: 650px) {
+
+      .container {
+        padding: 50px 18px 80px;
+      }
+
+      .form-card {
+        padding: 22px;
+      }
+
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .page-head h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+
+    <nav class="nav">
+
+      <a href="index.html" class="logo">
+        NOCTYRA<span>.</span>
+      </a>
+
+      <a href="index.html" class="back">
+        ← العودة للمكتبة
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <main class="container">
+
+    <div class="page-head">
+
+      <small>NOCTYRA</small>
+
+      <h1>
+        طلب إضافة عمل
+      </h1>
+
+      <p>
+        اقترح عملًا جديدًا ليتم مراجعته من الإدارة.
+      </p>
+
+    </div>
+
+
+    <form class="form-card" id="requestForm">
+
+      <!-- صورة العمل -->
+
+      <div class="field">
+
+        <label>
+          صورة العمل
+        </label>
+
+        <div class="cover-upload">
+
+          <div class="cover-preview" id="coverPreview">
+
+            <span id="coverPlaceholder">
+              ستظهر صورة العمل هنا
+            </span>
+
+            <img id="previewImage" alt="معاينة صورة العمل">
+
+          </div>
+
+          <label class="upload-button" for="coverInput">
+            اختيار الصورة
+          </label>
+
+          <input
+            type="file"
+            id="coverInput"
+            accept="image/*"
+          >
+
+          <div class="hint">
+            اختر صورة مناسبة للعمل.
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- الاسم الإنجليزي -->
+
+      <div class="field">
+
+        <label for="englishName">
+          الاسم الإنجليزي
+        </label>
+
+        <input
+          type="text"
+          id="englishName"
+          placeholder="مثال: The Beginning After the End"
+          required
+          autocomplete="off"
+        >
+
+      </div>
+
+
+      <!-- الاسم الأصلي -->
+
+      <div class="field">
+
+        <label for="originalName">
+          الاسم الأصلي
+        </label>
+
+        <input
+          type="text"
+          id="originalName"
+          placeholder="الاسم الأصلي للعمل"
+          required
+          autocomplete="off"
+        >
+
+        <div class="hint">
+          الاسم الأصلي، مثل الاسم الكوري أو الياباني.
+        </div>
+
+      </div>
+
+
+      <!-- النبذة -->
+
+      <div class="field">
+
+        <label for="description">
+          نبذة القصة
+        </label>
+
+        <textarea
+          id="description"
+          placeholder="اكتب نبذة مختصرة عن القصة..."
+          required
+        ></textarea>
+
+        <div class="hint">
+          اكتب النبذة بالعربي.
+        </div>
+
+      </div>
+
+
+      <!-- التصنيفات -->
+
+      <div class="field">
+
+        <label>
+          التصنيفات
+        </label>
+
+        <div class="categories">
+
+          <div class="category">
+            <input type="checkbox" id="action" value="action">
+            <label for="action">أكشن</label>
+          </div>
+
+          <div class="category">
+            <input type="checkbox" id="adventure" value="adventure">
+            <label for="adventure">مغامرة</label>
+          </div>
+
+          <div class="category">
+            <input type="checkbox" id="fantasy" value="fantasy">
+            <label for="fantasy">فانتازيا</label>
+          </div>
+
+          <div class="category">
+            <input type="checkbox" id="horror" value="horror">
+            <label for="horror">رعب</label>
+          </div>
+
+          <div class="category">
+            <input type="checkbox" id="psychological" value="psychological">
+            <label for="psychological">نفسي</label>
+          </div>
+
+          <div class="category">
+            <input type="checkbox" id="mystery" value="mystery">
+            <label for="mystery">غموض</label>
+          </div>
+
+          <div class="category">
+            <input type="checkbox" id="romance" value="romance">
+            <label for="romance">رومانسي</label>
+          </div>
+
+          <div class="category">
+            <input type="checkbox" id="drama" value="drama">
+            <label for="drama">دراما</label>
+          </div>
+
+          <div class="category">
+            <input type="checkbox" id="comedy" value="comedy">
+            <label for="comedy">كوميدي</label>
+          </div>
+
+          <div class="category">
+            <input type="checkbox" id="historical" value="historical">
+            <label for="historical">تاريخي</label>
+          </div>
+
+          <div class="category">
+            <input type="checkbox" id="supernatural" value="supernatural">
+            <label for="supernatural">خارق للطبيعة</label>
+          </div>
+
+          <div class="category">
+            <input type="checkbox" id="slice" value="slice">
+            <label for="slice">حياة يومية</label>
+          </div>
+
+        </div>
+
+        <div class="hint">
+          يمكنك اختيار أكثر من تصنيف.
+        </div>
+
+      </div>
+
+
+      <!-- التقييم -->
+
+      <div class="field">
+
+        <label>
+          تقييمك للعمل
+        </label>
+
+        <div class="rating">
+
+          <input type="radio" name="rating" id="star5" value="5">
+          <label for="star5">★</label>
+
+          <input type="radio" name="rating" id="star4" value="4">
+          <label for="star4">★</label>
+
+          <input type="radio" name="rating" id="star3" value="3">
+          <label for="star3">★</label>
+
+          <input type="radio" name="rating" id="star2" value="2">
+          <label for="star2">★</label>
+
+          <input type="radio" name="rating" id="star1" value="1">
+          <label for="star1">★</label>
+
+        </div>
+
+      </div>
+
+
+      <!-- التعليق -->
+
+      <div class="field">
+
+        <label for="comment">
+          تعليقك على العمل
+        </label>
+
+        <textarea
+          id="comment"
+          placeholder="اكتب رأيك أو ملاحظتك عن العمل..."
+        ></textarea>
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="submit-button"
+        id="submitButton"
+      >
+        إرسال الطلب
+      </button>
+
+
+      <div id="message" class="message"></div>
+
+    </form>
+
+  </main>
+
+
+  <footer class="footer">
+
+    © 2026 Noctyra. All Rights Reserved.
+
+  </footer>
+
+
+  <script>
+
+    /* =========================
+       معاينة الصورة
+    ========================= */
+
+    const coverInput =
+      document.getElementById("coverInput");
+
+    const previewImage =
+      document.getElementById("previewImage");
+
+    const coverPlaceholder =
+      document.getElementById("coverPlaceholder");
+
+
+    coverInput.addEventListener(
+      "change",
+      function () {
+
+        const file =
+          this.files[0];
+
+        if (!file) {
+          return;
+        }
+
+        if (!file.type.startsWith("image/")) {
+
+          alert("يرجى اختيار صورة فقط.");
+
+          this.value = "";
+
+          return;
+        }
+
+        const reader =
+          new FileReader();
+
+        reader.onload =
+          function (event) {
+
+            previewImage.src =
+              event.target.result;
+
+            previewImage.style.display =
+              "block";
+
+            coverPlaceholder.style.display =
+              "none";
+
+          };
+
+        reader.readAsDataURL(file);
+
+      }
+    );
+
+
+    /* =========================
+       النموذج
+    ========================= */
+
+    const requestForm =
+      document.getElementById("requestForm");
+
+    const submitButton =
+      document.getElementById("submitButton");
+
+    const message =
+      document.getElementById("message");
+
+
+    requestForm.addEventListener(
+      "submit",
+      function (event) {
+
+        event.preventDefault();
+
+        const englishName =
+          document
+            .getElementById("englishName")
+            .value
+            .trim();
+
+        const originalName =
+          document
+            .getElementById("originalName")
+            .value
+            .trim();
+
+        const description =
+          document
+            .getElementById("description")
+            .value
+            .trim();
+
+        const comment =
+          document
+            .getElementById("comment")
+            .value
+            .trim();
+
+
+        const selectedCategories =
+          Array.from(
+            document.querySelectorAll(
+              ".category input:checked"
+            )
+          ).map(
+            checkbox => checkbox.value
+          );
+
+
+        const selectedRating =
+          document.querySelector(
+            'input[name="rating"]:checked'
+          );
+
+
+        if (
+          selectedCategories.length === 0
+        ) {
+
+          showMessage(
+            "يرجى اختيار تصنيف واحد على الأقل.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        if (!selectedRating) {
+
+          showMessage(
+            "يرجى اختيار تقييم للعمل.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        if (!coverInput.files[0]) {
+
+          showMessage(
+            "يرجى اختيار صورة للعمل.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        /*
+          حاليًا هذه البيانات جاهزة للربط
+          مع Firebase في الخطوة التالية.
+        */
+
+        const requestData = {
+
+          englishName,
+
+          originalName,
+
+          description,
+
+          categories:
+            selectedCategories,
+
+          rating:
+            Number(selectedRating.value),
+
+          comment,
+
+          status:
+            "pending",
+
+          createdAt:
+            new Date().toISOString()
+
+        };
+
+
+        console.log(
+          "بيانات طلب الإضافة:",
+          requestData
+        );
+
+
+        submitButton.disabled =
+          true;
+
+        submitButton.textContent =
+          "تم تجهيز الطلب";
+
+
+        showMessage(
+          "تم تجهيز الطلب بنجاح. سنربطه بالحفظ في الموقع في الخطوة التالية.",
+          "success"
+        );
+
+      }
+    );
+
+
+    function showMessage(
+      text,
+      type
+    ) {
+
+      message.textContent =
+        text;
+
+      message.className =
+        "message " + type;
+
+    }
+
+  </script>
+
+</body>
+
+</html>
