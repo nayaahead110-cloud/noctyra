@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>طلب نشر عمل - Noctyra</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at 50% 20%,
+          #21172c 0%,
+          #0b0a0e 42%,
+          #060608 100%
+        );
+
+      color: #eeeeee;
+      font-family: Arial, sans-serif;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 30px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 27px;
+      font-weight: bold;
+      letter-spacing: 7px;
+      margin-bottom: 25px;
+    }
+
+    .logo span {
+      color: #9b72bd;
+    }
+
+    .box {
+      background: rgba(15, 14, 19, 0.97);
+      border: 1px solid #29242f;
+      border-radius: 12px;
+
+      padding: 35px 30px;
+
+      box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.55);
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 25px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #77727d;
+      font-size: 13px;
+      margin-bottom: 30px;
+    }
+
+    .cover-area {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .cover-label {
+      width: 190px;
+      height: 260px;
+
+      background: #09090c;
+      border: 1px dashed #40364a;
+      border-radius: 9px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+      cursor: pointer;
+
+      overflow: hidden;
+      transition: 0.2s;
+    }
+
+    .cover-label:hover {
+      border-color: #9b72bd;
+    }
+
+    .cover-content {
+      padding: 20px;
+      color: #77727d;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .cover-icon {
+      display: block;
+      color: #9b72bd;
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+
+    #coverPreview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    #coverInput {
+      display: none;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field label {
+      display: block;
+      color: #c9c4ce;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+
+      background: #09090c;
+      color: #eeeeee;
+
+      border: 1px solid #2b2730;
+      border-radius: 7px;
+
+      padding: 13px;
+
+      font-family: inherit;
+      font-size: 14px;
+
+      outline: none;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: #9b72bd;
+    }
+
+    .field textarea {
+      min-height: 150px;
+      resize: vertical;
+      line-height: 1.8;
+    }
+
+    .field select {
+      cursor: pointer;
+    }
+
+    .field select option {
+      background: #09090c;
+    }
+
+    .submit-button {
+      width: 100%;
+      padding: 14px;
+
+      background: #eeeeee;
+      color: #09090c;
+
+      border: 1px solid #eeeeee;
+      border-radius: 7px;
+
+      font-size: 14px;
+      font-weight: bold;
+
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .submit-button:hover {
+      background: transparent;
+      color: #eeeeee;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+
+      margin-top: 22px;
+
+      color: #66616b;
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .back:hover {
+      color: #9b72bd;
+    }
+
+    .note {
+      margin-top: 18px;
+      padding: 12px;
+
+      background: #0b0a0f;
+      border: 1px solid #24202a;
+      border-radius: 7px;
+
+      color: #68636d;
+      font-size: 11px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+
+      .box {
+        padding: 28px 20px;
+      }
+
+      .cover-label {
+        width: 170px;
+        height: 235px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <div class="logo">
+      NOCTYRA<span>.</span>
+    </div>
+
+    <section class="box">
+
+      <h1 class="title">
+        طلب نشر عمل
+      </h1>
+
+      <p class="subtitle">
+        أرسل معلومات العمل ليتم مراجعته من الإدارة.
+      </p>
+
+
+      <div class="cover-area">
+
+        <label class="cover-label" for="coverInput">
+
+          <div class="cover-content" id="coverContent">
+
+            <span class="cover-icon">✦</span>
+
+            اضغط هنا لإضافة صورة العمل
+
+            <br>
+
+            يفضل أن تكون الصورة واضحة.
+
+          </div>
+
+          <img id="coverPreview" alt="صورة العمل">
+
+        </label>
+
+        <input
+          type="file"
+          id="coverInput"
+          accept="image/*"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="workName">
+          اسم العمل
+        </label>
+
+        <input
+          type="text"
+          id="workName"
+          placeholder="اكتب اسم العمل"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="story">
+          القصة
+        </label>
+
+        <textarea
+          id="story"
+          placeholder="اكتب نبذة عن قصة العمل..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="category">
+          التصنيف
+        </label>
+
+        <select id="category">
+
+          <option value="">
+            اختر التصنيف
+          </option>
+
+          <option value="action">
+            أكشن
+          </option>
+
+          <option value="adventure">
+            مغامرة
+          </option>
+
+          <option value="fantasy">
+            فانتازيا
+          </option>
+
+          <option value="horror">
+            رعب
+          </option>
+
+          <option value="psychological">
+            نفسي
+          </option>
+
+          <option value="mystery">
+            غموض
+          </option>
+
+          <option value="romance">
+            رومانسي
+          </option>
+
+          <option value="drama">
+            دراما
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <button
+        class="submit-button"
+        id="submitButton"
+        type="button"
+      >
+        إرسال الطلب
+      </button>
+
+
+      <div class="note">
+        سيتم إرسال الطلب إلى الإدارة للمراجعة قبل نشر العمل.
+      </div>
+
+
+      <a
+        href="index.html"
+        class="back"
+      >
+        ← العودة إلى الرئيسية
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    const coverInput =
+      document.getElementById("coverInput");
+
+    const coverPreview =
+      document.getElementById("coverPreview");
+
+    const coverContent =
+      document.getElementById("coverContent");
+
+
+    coverInput.addEventListener("change", function () {
+
+      const file = this.files[0];
+
+      if (!file) {
+        return;
+      }
+
+      const imageURL =
+        URL.createObjectURL(file);
+
+      coverPreview.src = imageURL;
+
+      coverPreview.style.display = "block";
+
+      coverContent.style.display = "none";
+
+    });
+
+
+    document
+      .getElementById("submitButton")
+      .addEventListener("click", function () {
+
+        const name =
+          document.getElementById("workName").value.trim();
+
+        const story =
+          document.getElementById("story").value.trim();
+
+        const category =
+          document.getElementById("category").value;
+
+        const cover =
+          document.getElementById("coverInput").files[0];
+
+
+        if (!cover) {
+
+          alert("أضف صورة العمل أولًا.");
+
+          return;
+        }
+
+
+        if (!name) {
+
+          alert("اكتب اسم العمل.");
+
+          return;
+        }
+
+
+        if (!story) {
+
+          alert("اكتب قصة العمل.");
+
+          return;
+        }
+
+
+        if (!category) {
+
+          alert("اختر تصنيف العمل.");
+
+          return;
+        }
+
+
+        alert(
+          "تم تجهيز الطلب. سنربطه بقاعدة بيانات Firebase في الخطوة التالية."
+        );
+
+      });
+
+  </script>
+
+</body>
+</html>
