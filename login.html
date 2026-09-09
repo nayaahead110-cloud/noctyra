@@ -50,51 +50,13 @@ body {
 }
 
 .login-box {
-  position: relative;
-
   background: rgba(15, 14, 19, 0.96);
-
   border: 1px solid #29242f;
   border-radius: 10px;
 
   padding: 40px 30px;
 
   box-shadow: 0 25px 70px rgba(0,0,0,.5);
-}
-
-.corner {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  opacity: .6;
-}
-
-.top-right {
-  top: 12px;
-  right: 12px;
-  border-top: 1px solid #8b68a5;
-  border-right: 1px solid #8b68a5;
-}
-
-.top-left {
-  top: 12px;
-  left: 12px;
-  border-top: 1px solid #8b68a5;
-  border-left: 1px solid #8b68a5;
-}
-
-.bottom-right {
-  bottom: 12px;
-  right: 12px;
-  border-bottom: 1px solid #8b68a5;
-  border-right: 1px solid #8b68a5;
-}
-
-.bottom-left {
-  bottom: 12px;
-  left: 12px;
-  border-bottom: 1px solid #8b68a5;
-  border-left: 1px solid #8b68a5;
 }
 
 h1 {
@@ -155,22 +117,26 @@ button {
   cursor: pointer;
 }
 
-.divider {
-  text-align: center;
-  color: #55515b;
-  font-size: 12px;
-  margin: 25px 0;
+button:hover {
+  background: transparent;
+  color: #eee;
 }
 
-.create {
+.switch {
+  margin-top: 12px;
+  background: transparent;
+  color: #b18bc8;
+  border: 1px solid #393340;
+}
+
+.message {
+  min-height: 20px;
+  margin-top: 18px;
+
   text-align: center;
-  color: #77727d;
+
+  color: #b18bc8;
   font-size: 13px;
-}
-
-.create a {
-  color: #ad8bc2;
-  text-decoration: none;
 }
 
 .back {
@@ -182,23 +148,6 @@ button {
 
   font-size: 12px;
   margin-top: 25px;
-}
-
-.decor {
-  position: fixed;
-  color: #8b68a5;
-  opacity: .35;
-  pointer-events: none;
-}
-
-.d1 {
-  top: 20%;
-  right: 12%;
-}
-
-.d2 {
-  bottom: 20%;
-  left: 12%;
 }
 
 @media (max-width: 500px) {
@@ -214,29 +163,22 @@ button {
 
 }
 
-</style></head><body><div class="decor d1">✦</div>
-<div class="decor d2">✧</div><main class="login-container">  <div class="brand"><div class="logo">
+</style></head><body><main class="login-container">  <div class="brand"><div class="logo">
   NOCTYRA<span>.</span>
 </div>
 
 <div class="line"></div>
 
-  </div>  <section class="login-box"><div class="corner top-right"></div>
-<div class="corner top-left"></div>
-<div class="corner bottom-right"></div>
-<div class="corner bottom-left"></div>
-
-
-<h1>
+  </div>  <section class="login-box"><h1 id="title">
   تسجيل الدخول
 </h1>
 
-<p class="subtitle">
+<p class="subtitle" id="subtitle">
   ادخل إلى عالم Noctyra
 </p>
 
 
-<form>
+<form id="authForm">
 
   <div class="form-group">
 
@@ -264,35 +206,305 @@ button {
       id="password"
       type="password"
       placeholder="••••••••"
+      minlength="6"
       required
     >
 
   </div>
 
 
-  <button type="submit">
+  <div
+    class="form-group"
+    id="confirmGroup"
+    style="display:none;"
+  >
+
+    <label for="confirmPassword">
+      تأكيد كلمة المرور
+    </label>
+
+    <input
+      id="confirmPassword"
+      type="password"
+      placeholder="••••••••"
+    >
+
+  </div>
+
+
+  <button type="submit" id="submitButton">
     تسجيل الدخول
+  </button>
+
+
+  <button
+    type="button"
+    class="switch"
+    id="switchButton"
+  >
+    إنشاء حساب جديد
   </button>
 
 </form>
 
 
-<div class="divider">
-  ✦
-</div>
+<div
+  class="message"
+  id="message"
+></div>
 
 
-<div class="create">
-  ليس لديك حساب؟
-  <a href="#">
-    إنشاء حساب
-  </a>
-</div>
-
-
-<a href="index.html" class="back">
+<a
+  href="index.html"
+  class="back"
+>
   ← العودة إلى الرئيسية
 </a>
 
-  </section></main></body>
+  </section></main><script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+  apiKey: "AIzaSyAvVSfxR6ecsWU2lGUlHDJgdH3hktrZjGY",
+
+  authDomain:
+    "noctyra-4b71b.firebaseapp.com",
+
+  projectId:
+    "noctyra-4b71b",
+
+  storageBucket:
+    "noctyra-4b71b.firebasestorage.app",
+
+  messagingSenderId:
+    "240877556023",
+
+  appId:
+    "1:240877556023:web:99529c91607902b8414ab2",
+
+  measurementId:
+    "G-DYP839YDNK"
+
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+
+const form =
+  document.getElementById("authForm");
+
+const email =
+  document.getElementById("email");
+
+const password =
+  document.getElementById("password");
+
+const confirmPassword =
+  document.getElementById("confirmPassword");
+
+const confirmGroup =
+  document.getElementById("confirmGroup");
+
+const submitButton =
+  document.getElementById("submitButton");
+
+const switchButton =
+  document.getElementById("switchButton");
+
+const title =
+  document.getElementById("title");
+
+const subtitle =
+  document.getElementById("subtitle");
+
+const message =
+  document.getElementById("message");
+
+
+let registerMode = false;
+
+
+switchButton.addEventListener(
+  "click",
+  () => {
+
+    registerMode = !registerMode;
+
+    message.textContent = "";
+
+    if (registerMode) {
+
+      title.textContent =
+        "إنشاء حساب";
+
+      subtitle.textContent =
+        "أنشئ حسابك في Noctyra";
+
+      submitButton.textContent =
+        "إنشاء الحساب";
+
+      switchButton.textContent =
+        "لدي حساب بالفعل";
+
+      confirmGroup.style.display =
+        "block";
+
+      confirmPassword.required =
+        true;
+
+    } else {
+
+      title.textContent =
+        "تسجيل الدخول";
+
+      subtitle.textContent =
+        "ادخل إلى عالم Noctyra";
+
+      submitButton.textContent =
+        "تسجيل الدخول";
+
+      switchButton.textContent =
+        "إنشاء حساب جديد";
+
+      confirmGroup.style.display =
+        "none";
+
+      confirmPassword.required =
+        false;
+
+    }
+
+  }
+);
+
+
+form.addEventListener(
+  "submit",
+  async (event) => {
+
+    event.preventDefault();
+
+    message.textContent = "";
+
+    const emailValue =
+      email.value.trim();
+
+    const passwordValue =
+      password.value;
+
+
+    try {
+
+      if (registerMode) {
+
+        if (
+          passwordValue !==
+          confirmPassword.value
+        ) {
+
+          message.textContent =
+            "كلمتا المرور غير متطابقتين.";
+
+          return;
+        }
+
+
+        await createUserWithEmailAndPassword(
+          auth,
+          emailValue,
+          passwordValue
+        );
+
+
+        message.textContent =
+          "تم إنشاء الحساب بنجاح ✓";
+
+
+      } else {
+
+        await signInWithEmailAndPassword(
+          auth,
+          emailValue,
+          passwordValue
+        );
+
+
+        message.textContent =
+          "تم تسجيل الدخول بنجاح ✓";
+
+      }
+
+
+    } catch (error) {
+
+      console.error(error);
+
+
+      if (
+        error.code ===
+        "auth/email-already-in-use"
+      ) {
+
+        message.textContent =
+          "هذا البريد مستخدم بالفعل.";
+
+      }
+
+      else if (
+        error.code ===
+        "auth/invalid-email"
+      ) {
+
+        message.textContent =
+          "البريد الإلكتروني غير صحيح.";
+
+      }
+
+      else if (
+        error.code ===
+        "auth/weak-password"
+      ) {
+
+        message.textContent =
+          "كلمة المرور يجب أن تكون 6 أحرف على الأقل.";
+
+      }
+
+      else if (
+        error.code ===
+        "auth/invalid-credential"
+      ) {
+
+        message.textContent =
+          "البريد أو كلمة المرور غير صحيحة.";
+
+      }
+
+      else {
+
+        message.textContent =
+          "حدث خطأ، حاولي مرة أخرى.";
+
+      }
+
+    }
+
+  }
+);
+
+</script></body>
 </html>
