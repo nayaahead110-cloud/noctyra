@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>إدارة الطلبات | Noctyra</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #09090c;
+      color: #eeeeee;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(9, 9, 12, 0.95);
+      border-bottom: 1px solid #222229;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      max-width: 1100px;
+      min-height: 70px;
+      padding: 0 24px;
+      margin: auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 4px;
+    }
+
+    .logo span {
+      color: #8d6bb5;
+    }
+
+    .back {
+      color: #9999a3;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 55px 24px 100px;
+    }
+
+    .head {
+      margin-bottom: 35px;
+    }
+
+    .head small {
+      color: #8d6bb5;
+      letter-spacing: 4px;
+      font-size: 11px;
+    }
+
+    .head h1 {
+      margin-top: 8px;
+      font-size: 32px;
+    }
+
+    .head p {
+      margin-top: 7px;
+      color: #777781;
+      font-size: 14px;
+    }
+
+    .owner-badge {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 5px 11px;
+      border: 1px solid #4b3860;
+      border-radius: 20px;
+      color: #b08ad8;
+      font-size: 11px;
+    }
+
+    .status {
+      background: #101015;
+      border: 1px solid #25222d;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      color: #9999a3;
+      font-size: 13px;
+    }
+
+    .requests {
+      display: grid;
+      gap: 18px;
+    }
+
+    .request-card {
+      background: #101015;
+      border: 1px solid #25222d;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .request-content {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 25px;
+      padding: 22px;
+    }
+
+    .cover {
+      width: 150px;
+      height: 215px;
+      background: #09090c;
+      border-radius: 7px;
+      overflow: hidden;
+      border: 1px solid #292631;
+    }
+
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .info h2 {
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    .original {
+      color: #8d6bb5;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .description {
+      color: #aaaab3;
+      font-size: 14px;
+      line-height: 1.9;
+      margin-bottom: 18px;
+    }
+
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .category {
+      border: 1px solid #332c3d;
+      background: #17121e;
+      color: #b08ad8;
+      padding: 4px 9px;
+      border-radius: 5px;
+      font-size: 11px;
+    }
+
+    .rating {
+      color: #b08ad8;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .sender {
+      color: #666670;
+      font-size: 11px;
+      word-break: break-all;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      padding: 16px 22px;
+      border-top: 1px solid #25222d;
+      background: #0d0d11;
+    }
+
+    button {
+      border: none;
+      border-radius: 6px;
+      padding: 11px 22px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .approve {
+      background: #eeeeee;
+      color: #09090c;
+    }
+
+    .approve:hover {
+      background: #b08ad8;
+      color: #ffffff;
+    }
+
+    .reject {
+      background: transparent;
+      border: 1px solid #49262b;
+      color: #d99aa2;
+    }
+
+    .reject:hover {
+      background: #1a1012;
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      background: #101015;
+      border: 1px solid #25222d;
+      border-radius: 10px;
+      color: #666670;
+    }
+
+    .loading {
+      text-align: center;
+      color: #777781;
+      padding: 40px;
+    }
+
+    .error {
+      text-align: center;
+      padding: 30px;
+      background: #1a1012;
+      border: 1px solid #49262b;
+      border-radius: 8px;
+      color: #d99aa2;
+    }
+
+    .footer {
+      border-top: 1px solid #222229;
+      padding: 35px;
+      text-align: center;
+      color: #666670;
+      font-size: 12px;
+    }
+
+    @media (max-width: 700px) {
+
+      .container {
+        padding: 40px 16px 80px;
+      }
+
+      .nav {
+        padding: 0 16px;
+      }
+
+      .request-content {
+        grid-template-columns: 1fr;
+      }
+
+      .cover {
+        width: 170px;
+        height: 240px;
+        margin: auto;
+      }
+
+      .info h2 {
+        font-size: 19px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+  <nav class="nav">
+
+    <a href="index.html" class="logo">
+      NOCTYRA<span>.</span>
+    </a>
+
+    <a href="index.html" class="back">
+      ← العودة للموقع
+    </a>
+
+  </nav>
+
+</header>
+
+
+<main class="container">
+
+  <div class="head">
+
+    <small>NOCTYRA / MANAGEMENT</small>
+
+    <h1>
+      طلبات إضافة الأعمال
+    </h1>
+
+    <p>
+      راجعي الأعمال المقترحة قبل إضافتها إلى المكتبة.
+    </p>
+
+    <span class="owner-badge">
+      OWNER
+    </span>
+
+  </div>
+
+
+  <div id="status" class="status">
+    جاري تحميل الطلبات...
+  </div>
+
+
+  <div
+    id="requests"
+    class="requests"
+  ></div>
+
+</main>
+
+
+<footer class="footer">
+  © 2026 Noctyra. All Rights Reserved.
+</footer>
+
+
+<script type="module">
+
+  import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+  import {
+    getAuth,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+  import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    runTransaction,
+    serverTimestamp,
+    query,
+    where
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+  const firebaseConfig = {
+
+    apiKey: "ضع_نفس_apiKey_الموجود_عندك",
+
+    authDomain:
+      "noctyra-4b71b.firebaseapp.com",
+
+    projectId:
+      "noctyra-4b71b",
+
+    storageBucket:
+      "noctyra-4b71b.firebasestorage.app",
+
+    messagingSenderId:
+      "240877556023",
+
+    appId:
+      "1:240877556023:web:99529c91607902b8414ab2",
+
+    measurementId:
+      "G-DYP839YDNK"
+
+  };
+
+
+  const app =
+    initializeApp(firebaseConfig);
+
+  const auth =
+    getAuth(app);
+
+  const db =
+    getFirestore(app);
+
+
+  const OWNER_EMAIL =
+    "nayaahead110@gmail.com";
+
+
+  const requestsContainer =
+    document.getElementById("requests");
+
+  const statusBox =
+    document.getElementById("status");
+
+
+  onAuthStateChanged(
+    auth,
+    async (user) => {
+
+      if (!user) {
+
+        statusBox.textContent =
+          "يجب تسجيل الدخول بحساب المالك.";
+
+        requestsContainer.innerHTML =
+          `<div class="error">
+             لم يتم تسجيل الدخول.
+           </div>`;
+
+        return;
+      }
+
+
+      if (
+        user.email.toLowerCase() !==
+        OWNER_EMAIL.toLowerCase()
+      ) {
+
+        statusBox.textContent =
+          "ليس لديك صلاحية الوصول.";
+
+        requestsContainer.innerHTML =
+          `<div class="error">
+             هذه الصفحة مخصصة للـ Owner فقط.
+           </div>`;
+
+        return;
+      }
+
+
+      await loadRequests();
+
+    }
+  );
+
+
+  async function loadRequests() {
+
+    try {
+
+      const requestsQuery =
+        query(
+          collection(db, "workRequests"),
+          where("status", "==", "pending")
+        );
+
+
+      const snapshot =
+        await getDocs(requestsQuery);
+
+
+      requestsContainer.innerHTML = "";
+
+
+      if (snapshot.empty) {
+
+        statusBox.textContent =
+          "لا توجد طلبات معلقة حاليًا.";
+
+        requestsContainer.innerHTML =
+          `<div class="empty">
+             لا توجد طلبات جديدة ✦
+           </div>`;
+
+        return;
+      }
+
+
+      statusBox.textContent =
+        `لديك ${snapshot.size} طلب/طلبات بانتظار المراجعة.`;
+
+
+      snapshot.forEach((requestDoc) => {
+
+        renderRequest(
+          requestDoc.id,
+          requestDoc.data()
+        );
+
+      });
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      statusBox.textContent =
+        "حدث خطأ أثناء تحميل الطلبات.";
+
+      requestsContainer.innerHTML =
+        `<div class="error">
+           تأكد من إعداد Firestore Rules ثم حاول مرة أخرى.
+         </div>`;
+
+    }
+
+  }
+
+
+  function renderRequest(id, data) {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "request-card";
+
+    const categories =
+      Array.isArray(data.categories)
+        ? data.categories
+        : [];
+
+
+    const categoriesHTML =
+      categories
+        .map(
+          category =>
+            `<span class="category">
+               ${escapeHTML(category)}
+             </span>`
+        )
+        .join("");
+
+
+    const rating =
+      Number(data.rating || 0);
+
+
+    const stars =
+      "★".repeat(rating) +
+      "☆".repeat(5 - rating);
+
+
+    card.innerHTML = `
+
+      <div class="request-content">
+
+        <div class="cover">
+
+          <img
+            src="${escapeAttribute(data.coverUrl || "")}"
+            alt="غلاف العمل"
+          >
+
+        </div>
+
+
+        <div class="info">
+
+          <h2>
+            ${escapeHTML(data.englishName || "بدون اسم")}
+          </h2>
+
+          <div class="original">
+            ${escapeHTML(data.originalName || "")}
+          </div>
+
+
+          <div class="description">
+            ${escapeHTML(data.description || "")}
+          </div>
+
+
+          <div class="categories">
+            ${categoriesHTML}
+          </div>
+
+
+          <div class="rating">
+            ${stars}
+          </div>
+
+
+          <div class="sender">
+            مقدم الطلب:
+            ${escapeHTML(data.submittedByEmail || "غير معروف")}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="actions">
+
+        <button
+          class="approve"
+          data-action="approve"
+        >
+          ✓ قبول وإضافة للمكتبة
+        </button>
+
+        <button
+          class="reject"
+          data-action="reject"
+        >
+          ✕ رفض الطلب
+        </button>
+
+      </div>
+
+    `;
+
+
+    const approveButton =
+      card.querySelector(
+        '[data-action="approve"]'
+      );
+
+
+    const rejectButton =
+      card.querySelector(
+        '[data-action="reject"]'
+      );
+
+
+    approveButton.addEventListener(
+      "click",
+      () => approveRequest(
+        id,
+        data,
+        card,
+        approveButton,
+        rejectButton
+      )
+    );
+
+
+    rejectButton.addEventListener(
+      "click",
+      () => rejectRequest(
+        id,
+        card,
+        approveButton,
+        rejectButton
+      )
+    );
+
+
+    requestsContainer.appendChild(card);
+
+  }
+
+
+  async function approveRequest(
+    requestId,
+    data,
+    card,
+    approveButton,
+    rejectButton
+  ) {
+
+    const confirmed =
+      confirm(
+        `هل تريدين قبول "${data.englishName}" وإضافته إلى المكتبة؟`
+      );
+
+
+    if (!confirmed) return;
+
+
+    approveButton.disabled = true;
+    rejectButton.disabled = true;
+
+    approveButton.textContent =
+      "جاري الإضافة...";
+
+
+    try {
+
+      const requestRef =
+        doc(
+          db,
+          "workRequests",
+          requestId
+        );
+
+
+      const workRef =
+        doc(
+          collection(db, "works")
+        );
+
+
+      await runTransaction(
+        db,
+        async (transaction) => {
+
+          const requestSnapshot =
+            await transaction.get(
+              requestRef
+            );
+
+
+          if (!requestSnapshot.exists()) {
+
+            throw new Error(
+              "الطلب غير موجود."
+            );
+
+          }
+
+
+          const requestData =
+            requestSnapshot.data();
+
+
+          if (
+            requestData.status !==
+            "pending"
+          ) {
+
+            throw new Error(
+              "تمت معالجة هذا الطلب مسبقًا."
+            );
+
+          }
+
+
+          const workData = {
+
+            title:
+              requestData.englishName || "",
+
+            name:
+              requestData.englishName || "",
+
+            englishName:
+              requestData.englishName || "",
+
+            originalName:
+              requestData.originalName || "",
+
+            description:
+              requestData.description || "",
+
+            categories:
+              requestData.categories || [],
+
+            rating:
+              requestData.rating || 0,
+
+            cover:
+              requestData.coverUrl || "",
+
+            coverUrl:
+              requestData.coverUrl || "",
+
+            sourceRequestId:
+              requestId,
+
+            createdAt:
+              serverTimestamp(),
+
+            addedBy:
+              OWNER_EMAIL
+
+          };
+
+
+          transaction.set(
+            workRef,
+            workData
+          );
+
+
+          transaction.update(
+            requestRef,
+            {
+
+              status:
+                "approved",
+
+              reviewedAt:
+                serverTimestamp(),
+
+              reviewedBy:
+                OWNER_EMAIL,
+
+              approvedWorkId:
+                workRef.id
+
+            }
+          );
+
+        }
+      );
+
+
+      card.remove();
+
+      updateStatusAfterAction();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "حدث خطأ أثناء قبول الطلب."
+      );
+
+
+      approveButton.disabled = false;
+      rejectButton.disabled = false;
+
+      approveButton.textContent =
+        "✓ قبول وإضافة للمكتبة";
+
+    }
+
+  }
+
+
+  async function rejectRequest(
+    requestId,
+    card,
+    approveButton,
+    rejectButton
+  ) {
+
+    const confirmed =
+      confirm(
+        "هل تريدين رفض هذا الطلب؟"
+      );
+
+
+    if (!confirmed) return;
+
+
+    approveButton.disabled = true;
+    rejectButton.disabled = true;
+
+    rejectButton.textContent =
+      "جاري الرفض...";
+
+
+    try {
+
+      const requestRef =
+        doc(
+          db,
+          "workRequests",
+          requestId
+        );
+
+
+      await runTransaction(
+        db,
+        async (transaction) => {
+
+          const snapshot =
+            await transaction.get(
+              requestRef
+            );
+
+
+          if (!snapshot.exists()) {
+
+            throw new Error(
+              "الطلب غير موجود."
+            );
+
+          }
+
+
+          const data =
+            snapshot.data();
+
+
+          if (
+            data.status !==
+            "pending"
+          ) {
+
+            throw new Error(
+              "تمت معالجة الطلب مسبقًا."
+            );
+
+          }
+
+
+          transaction.update(
+            requestRef,
+            {
+
+              status:
+                "rejected",
+
+              reviewedAt:
+                serverTimestamp(),
+
+              reviewedBy:
+                OWNER_EMAIL
+
+            }
+          );
+
+        }
+      );
+
+
+      card.remove();
+
+      updateStatusAfterAction();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "حدث خطأ أثناء رفض الطلب."
+      );
+
+
+      approveButton.disabled = false;
+      rejectButton.disabled = false;
+
+      rejectButton.textContent =
+        "✕ رفض الطلب";
+
+    }
+
+  }
+
+
+  function updateStatusAfterAction() {
+
+    const cards =
+      document.querySelectorAll(
+        ".request-card"
+      );
+
+
+    if (cards.length === 0) {
+
+      statusBox.textContent =
+        "لا توجد طلبات معلقة حاليًا.";
+
+      requestsContainer.innerHTML =
+        `<div class="empty">
+           تمت معالجة جميع الطلبات ✦
+         </div>`;
+
+    } else {
+
+      statusBox.textContent =
+        `لديك ${cards.length} طلب/طلبات بانتظار المراجعة.`;
+
+    }
+
+  }
+
+
+  function escapeHTML(value) {
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  function escapeAttribute(value) {
+
+    return escapeHTML(value);
+
+  }
+
+</script>
+
+</body>
+</html>
