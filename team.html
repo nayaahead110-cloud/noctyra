@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Noctyra | الفريق</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(110, 60, 160, 0.18), transparent 35%),
+        #09070d;
+      color: #eee;
+      min-height: 100vh;
+    }
+
+    button,
+    input,
+    textarea {
+      font-family: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ================= HEADER ================= */
+
+    header {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+      background: rgba(12, 9, 17, 0.95);
+      border-bottom: 1px solid rgba(168, 109, 255, 0.18);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+      color: #c58cff;
+      letter-spacing: 2px;
+    }
+
+    .menu-btn {
+      width: 43px;
+      height: 43px;
+      border: 1px solid rgba(197, 140, 255, 0.3);
+      background: #110d18;
+      color: #d8aaff;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 21px;
+    }
+
+    /* ================= SIDE MENU ================= */
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 280px;
+      height: 100vh;
+      background: #0e0a13;
+      border-left: 1px solid rgba(197, 140, 255, 0.2);
+      z-index: 200;
+      transition: 0.3s;
+      padding: 90px 20px 20px;
+    }
+
+    .side-menu.active {
+      right: 0;
+    }
+
+    .side-menu a {
+      display: block;
+      padding: 15px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      color: #ddd;
+      transition: 0.2s;
+    }
+
+    .side-menu a:hover {
+      background: rgba(170, 100, 240, 0.12);
+      color: #d19aff;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 150;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* ================= MAIN ================= */
+
+    main {
+      width: min(1050px, 92%);
+      margin: 35px auto 70px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #b98ae8;
+      cursor: pointer;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 80px 20px;
+      color: #aaa;
+    }
+
+    .error {
+      text-align: center;
+      padding: 70px 20px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+    }
+
+    .error h2 {
+      margin-bottom: 10px;
+      color: #d5a4ff;
+    }
+
+    /* ================= TEAM HEADER ================= */
+
+    .team-header {
+      background: rgba(20, 14, 27, 0.88);
+      border: 1px solid rgba(197, 140, 255, 0.18);
+      border-radius: 24px;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 30px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    .team-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 22px;
+      object-fit: cover;
+      background: #151018;
+      border: 1px solid rgba(197, 140, 255, 0.2);
+      flex-shrink: 0;
+    }
+
+    .team-info {
+      flex: 1;
+    }
+
+    .team-info h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: #f1ddff;
+    }
+
+    .team-description {
+      color: #aaa;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    .team-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .meta {
+      background: rgba(190, 120, 255, 0.08);
+      border: 1px solid rgba(190, 120, 255, 0.14);
+      padding: 8px 13px;
+      border-radius: 9px;
+      color: #cda4eb;
+      font-size: 13px;
+    }
+
+    /* ================= SECTIONS ================= */
+
+    .section {
+      background: rgba(20, 14, 27, 0.7);
+      border: 1px solid rgba(197, 140, 255, 0.13);
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .section-title h2 {
+      font-size: 21px;
+      color: #e5caff;
+    }
+
+    /* ================= MEMBERS ================= */
+
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 15px;
+    }
+
+    .member-card {
+      position: relative;
+      text-align: center;
+      padding: 20px 12px;
+      background: rgba(10, 7, 14, 0.75);
+      border-radius: 17px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .member-avatar-wrap {
+      position: relative;
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 12px;
+    }
+
+    .member-avatar {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #18131d;
+      border: 3px solid #468cff;
+    }
+
+    /* القائد */
+    .member-card.leader .member-avatar {
+      border-color: #d6a537;
+      box-shadow: 0 0 14px rgba(214, 165, 55, 0.18);
+    }
+
+    /* النائب */
+    .member-card.vice .member-avatar {
+      border-color: #9c55e8;
+    }
+
+    /* العضو */
+    .member-card.member .member-avatar {
+      border-color: #468cff;
+    }
+
+    .crown {
+      position: absolute;
+      top: -17px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(236, 193, 74, 0.78);
+      font-size: 25px;
+      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.6));
+      pointer-events: none;
+    }
+
+    .member-name {
+      color: #eee;
+      font-weight: bold;
+      margin-bottom: 6px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .member-role {
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .leader .member-role {
+      color: #d8b451;
+    }
+
+    .vice .member-role {
+      color: #ad69e8;
+    }
+
+    .member .member-role {
+      color: #619cff;
+    }
+
+    /* ================= WORKS ================= */
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 18px;
+    }
+
+    .work-card {
+      background: rgba(10, 7, 14, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: 0.2s;
+    }
+
+    .work-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(197, 140, 255, 0.3);
+    }
+
+    .work-cover {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      background: #151018;
+    }
+
+    .work-info {
+      padding: 13px;
+    }
+
+    .work-info h3 {
+      color: #eee;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .work-info p {
+      color: #999;
+      font-size: 12px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 35px 15px;
+      color: #888;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 650px) {
+
+      .team-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .team-meta {
+        justify-content: center;
+      }
+
+      .team-info h1 {
+        font-size: 26px;
+      }
+
+      .team-image {
+        width: 125px;
+        height: 125px;
+      }
+
+      .members-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .works-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .work-cover {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">Noctyra</div>
+
+    <button class="menu-btn" id="menuBtn">☰</button>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+
+  <nav class="side-menu" id="sideMenu">
+    <a href="index.html">الرئيسية</a>
+    <a href="works.html">الأعمال</a>
+    <a href="teams.html">الفرق</a>
+    <a href="favorites.html">المفضلة</a>
+    <a href="account.html">حسابي</a>
+  </nav>
+
+  <main>
+
+    <a class="back" href="teams.html">← العودة إلى الفرق</a>
+
+    <div id="loading" class="loading">
+      جاري تحميل الفريق...
+    </div>
+
+    <div id="error" class="error" style="display:none;">
+      <h2>تعذر العثور على الفريق</h2>
+      <p>قد يكون الرابط غير صحيح أو أن الفريق غير موجود.</p>
+    </div>
+
+    <div id="teamContent" style="display:none;">
+
+      <!-- TEAM HEADER -->
+      <section class="team-header">
+
+        <img id="teamImage"
+             class="team-image"
+             src=""
+             alt="صورة الفريق">
+
+        <div class="team-info">
+
+          <h1 id="teamName">اسم الفريق</h1>
+
+          <p id="teamDescription"
+             class="team-description">
+          </p>
+
+          <div class="team-meta">
+
+            <span class="meta">
+              👥 <span id="memberCount">0</span> أعضاء
+            </span>
+
+            <span class="meta">
+              📚 <span id="workCount">0</span> أعمال
+            </span>
+
+            <span class="meta">
+              👑 القائد:
+              <span id="leaderName">---</span>
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- MEMBERS -->
+      <section class="section">
+
+        <div class="section-title">
+          <h2>أعضاء الفريق</h2>
+        </div>
+
+        <div id="membersGrid" class="members-grid"></div>
+
+      </section>
+
+
+      <!-- WORKS -->
+      <section class="section">
+
+        <div class="section-title">
+          <h2>أعمال الفريق</h2>
+        </div>
+
+        <div id="worksGrid" class="works-grid"></div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script type="module">
+
+    /* ================= FIREBASE ================= */
+
+    import { initializeApp } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      setPersistence,
+      browserLocalPersistence
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+    import {
+      getFirestore,
+      doc,
+      getDoc
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAvVSfxR6ecsWU2lGUlHDJgdH3hktrZjGY",
+      authDomain: "noctyra-4b71b.firebaseapp.com",
+      projectId: "noctyra-4b71b",
+      storageBucket: "noctyra-4b71b.firebasestorage.app",
+      messagingSenderId: "240877556023",
+      appId: "1:240877556023:web:99529c91607902b8414ab2",
+      measurementId: "G-DYP839YDNK"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+
+    /* ================= MENU ================= */
+
+    const menuBtn = document.getElementById("menuBtn");
+    const sideMenu = document.getElementById("sideMenu");
+    const overlay = document.getElementById("overlay");
+
+    menuBtn.addEventListener("click", () => {
+      sideMenu.classList.toggle("active");
+      overlay.classList.toggle("active");
+    });
+
+    overlay.addEventListener("click", () => {
+      sideMenu.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+
+
+    /* ================= URL ================= */
+
+    const params = new URLSearchParams(window.location.search);
+    const teamId = params.get("id");
+
+
+    const loading = document.getElementById("loading");
+    const errorBox = document.getElementById("error");
+    const teamContent = document.getElementById("teamContent");
+
+
+    /* ================= IMAGE ================= */
+
+    function getAvatar(member) {
+
+      if (member.avatar) {
+        return member.avatar;
+      }
+
+      if (member.photoURL) {
+        return member.photoURL;
+      }
+
+      return "data:image/svg+xml;charset=UTF-8," +
+        encodeURIComponent(`
+          <svg xmlns="http://www.w3.org/2000/svg"
+               width="200"
+               height="200"
+               viewBox="0 0 200 200">
+
+            <rect width="200" height="200" fill="#17111d"/>
+
+            <circle
+              cx="100"
+              cy="80"
+              r="35"
+              fill="#8e62a8"/>
+
+            <path
+              d="M40 180
+                 C45 130 75 115 100 115
+                 C125 115 155 130 160 180"
+              fill="#8e62a8"/>
+
+          </svg>
+        `);
+    }
+
+
+    /* ================= ROLE ================= */
+
+    function getRoleClass(role) {
+
+      if (role === "leader") {
+        return "leader";
+      }
+
+      if (
+        role === "vice" ||
+        role === "viceLeader" ||
+        role === "نائب"
+      ) {
+        return "vice";
+      }
+
+      return "member";
+    }
+
+
+    function getRoleName(role) {
+
+      if (role === "leader") {
+        return "القائد";
+      }
+
+      if (
+        role === "vice" ||
+        role === "viceLeader" ||
+        role === "نائب"
+      ) {
+        return "نائب القائد";
+      }
+
+      return "عضو";
+    }
+
+
+    /* ================= LOAD TEAM ================= */
+
+    async function loadTeam() {
+
+      if (!teamId) {
+        loading.style.display = "none";
+        errorBox.style.display = "block";
+        return;
+      }
+
+
+      try {
+
+        const teamRef = doc(db, "teams", teamId);
+        const teamSnap = await getDoc(teamRef);
+
+
+        if (!teamSnap.exists()) {
+
+          loading.style.display = "none";
+          errorBox.style.display = "block";
+
+          return;
+        }
+
+
+        const team = teamSnap.data();
+
+
+        /* TEAM INFO */
+
+        document.getElementById("teamName").textContent =
+          team.name || "فريق بدون اسم";
+
+
+        document.getElementById("teamDescription").textContent =
+          team.description || "لا توجد نبذة عن الفريق.";
+
+
+        document.getElementById("teamImage").src =
+          team.image || getAvatar({});
+
+
+        const members = Array.isArray(team.members)
+          ? team.members
+          : [];
+
+
+        const works = Array.isArray(team.works)
+          ? team.works
+          : [];
+
+
+        document.getElementById("memberCount").textContent =
+          members.length;
+
+
+        document.getElementById("workCount").textContent =
+          works.length;
+
+
+        const leader =
+          members.find(member => member.role === "leader");
+
+
+        document.getElementById("leaderName").textContent =
+          leader?.name ||
+          team.ownerName ||
+          "غير معروف";
+
+
+        /* ================= MEMBERS ================= */
+
+        const membersGrid =
+          document.getElementById("membersGrid");
+
+
+        membersGrid.innerHTML = "";
+
+
+        if (members.length === 0) {
+
+          membersGrid.innerHTML =
+            `<div class="empty">لا يوجد أعضاء.</div>`;
+
+        } else {
+
+          members.forEach(member => {
+
+            const roleClass =
+              getRoleClass(member.role);
+
+            const roleName =
+              getRoleName(member.role);
+
+
+            const card =
+              document.createElement("div");
+
+            card.className =
+              `member-card ${roleClass}`;
+
+
+            card.innerHTML = `
+
+              <div class="member-avatar-wrap">
+
+                ${
+                  roleClass === "leader"
+                    ? `<div class="crown">♛</div>`
+                    : ""
+                }
+
+                <img
+                  class="member-avatar"
+                  src="${getAvatar(member)}"
+                  alt="صورة العضو"
+                >
+
+              </div>
+
+              <div class="member-name">
+                ${escapeHTML(member.name || "عضو")}
+              </div>
+
+              <div class="member-role">
+                ${roleName}
+              </div>
+
+            `;
+
+
+            membersGrid.appendChild(card);
+
+          });
+
+        }
+
+
+        /* ================= WORKS ================= */
+
+        const worksGrid =
+          document.getElementById("worksGrid");
+
+
+        worksGrid.innerHTML = "";
+
+
+        if (works.length === 0) {
+
+          worksGrid.innerHTML =
+            `<div class="empty">
+              لا توجد أعمال مرتبطة بهذا الفريق حتى الآن.
+            </div>`;
+
+        } else {
+
+          works.forEach(work => {
+
+            const workId =
+              typeof work === "string"
+                ? work
+                : work.id;
+
+            const workName =
+              typeof work === "string"
+                ? "عمل"
+                : work.name || work.title || "عمل";
+
+
+            const cover =
+              typeof work === "object" && work.cover
+                ? work.cover
+                : "";
+
+
+            const card =
+              document.createElement("a");
+
+            card.className = "work-card";
+
+
+            if (workId) {
+              card.href =
+                "work.html?id=" +
+                encodeURIComponent(workId);
+            }
+
+
+            card.innerHTML = `
+
+              <img
+                class="work-cover"
+                src="${cover || placeholderCover()}"
+                alt=""
+              >
+
+              <div class="work-info">
+
+                <h3>
+                  ${escapeHTML(workName)}
+                </h3>
+
+                <p>
+                  عرض العمل
+                </p>
+
+              </div>
+
+            `;
+
+
+            worksGrid.appendChild(card);
+
+          });
+
+        }
+
+
+        loading.style.display = "none";
+        teamContent.style.display = "block";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        loading.style.display = "none";
+        errorBox.style.display = "block";
+
+      }
+
+    }
+
+
+    /* ================= HELPERS ================= */
+
+    function escapeHTML(value) {
+
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
+
+
+    function placeholderCover() {
+
+      return "data:image/svg+xml;charset=UTF-8," +
+        encodeURIComponent(`
+          <svg xmlns="http://www.w3.org/2000/svg"
+               width="400"
+               height="550">
+
+            <rect
+              width="400"
+              height="550"
+              fill="#151018"/>
+
+            <text
+              x="200"
+              y="275"
+              text-anchor="middle"
+              fill="#80658f"
+              font-size="28">
+
+              Noctyra
+
+            </text>
+
+          </svg>
+        `);
+
+    }
+
+
+    /* ================= AUTH ================= */
+
+    setPersistence(
+      auth,
+      browserLocalPersistence
+    ).catch(console.error);
+
+
+    onAuthStateChanged(auth, user => {
+
+      if (!user) {
+
+        window.location.href = "login.html";
+
+        return;
+      }
+
+      loadTeam();
+
+    });
+
+  </script>
+
+</body>
+</html>
