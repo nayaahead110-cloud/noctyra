@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>حسابي | Noctyra</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, #24113d 0%, #0b0710 45%, #050407 100%);
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7%;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(5,4,7,.8);
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+      letter-spacing: 4px;
+    }
+
+    .back {
+      color: #c99cff;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .back:hover {
+      color: #fff;
+    }
+
+    main {
+      min-height: calc(100vh - 75px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    .account-card {
+      width: 100%;
+      max-width: 500px;
+      padding: 40px 30px;
+      text-align: center;
+      border-radius: 22px;
+      background: rgba(20,14,28,.92);
+      border: 1px solid rgba(180,120,255,.18);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #29153d, #100a16);
+      border: 2px solid #704095;
+      color: #c99cff;
+      font-size: 40px;
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    /* =========================
+       الاسم الظاهر
+    ========================= */
+
+    .display-name {
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      word-break: break-word;
+    }
+
+    .display-name::before {
+      content: "✦ ";
+      color: #a96ee0;
+    }
+
+    /* =========================
+       اليوزر
+    ========================= */
+
+    .handle {
+      direction: ltr;
+      text-align: center;
+      color: #9d82ad;
+      font-size: 14px;
+      margin-bottom: 16px;
+      word-break: break-word;
+    }
+
+    .handle span {
+      color: #c99cff;
+    }
+
+    /* =========================
+       معلومات الحساب
+    ========================= */
+
+    .profile-info {
+      margin: 0 auto 28px;
+      max-width: 390px;
+    }
+
+    .bio {
+      color: #c5b8ce;
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 0 auto 10px;
+      word-break: break-word;
+    }
+
+    .bio.empty {
+      color: #716577;
+    }
+
+    .joined {
+      color: #807287;
+      font-size: 12px;
+    }
+
+    /* =========================
+       الأزرار
+    ========================= */
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: .2s;
+      font-family: inherit;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .edit {
+      border: 1px solid #704095;
+      background: rgba(112,64,149,.12);
+      color: #d5b4ef;
+    }
+
+    .edit:hover {
+      background: rgba(112,64,149,.25);
+    }
+
+    .logout {
+      border: none;
+      background: #6e3b8f;
+      color: white;
+    }
+
+    .logout:hover {
+      background: #8249a5;
+    }
+
+    .loading {
+      color: #aaa;
+    }
+
+    /* =========================
+       لوحة التعديل
+    ========================= */
+
+    .edit-panel {
+      display: none;
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      text-align: right;
+    }
+
+    .edit-panel.show {
+      display: block;
+    }
+
+    .edit-title {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 22px;
+      color: #d5b4ef;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      color: #c9b8d4;
+      font-size: 14px;
+    }
+
+    .field input[type="text"],
+    .field textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(180,120,255,.2);
+      outline: none;
+      background: #100a16;
+      color: white;
+      font-size: 15px;
+      font-family: inherit;
+    }
+
+    .field input[type="text"]:focus,
+    .field textarea:focus {
+      border-color: #8d55b5;
+    }
+
+    .name-input {
+      direction: rtl;
+      text-align: right;
+    }
+
+    .username-input {
+      direction: ltr;
+      text-align: left;
+    }
+
+    .username-wrapper {
+      position: relative;
+    }
+
+    .username-at {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8d6aa0;
+      pointer-events: none;
+    }
+
+    .username-input {
+      padding-left: 30px !important;
+    }
+
+    .field textarea {
+      min-height: 90px;
+      resize: vertical;
+      direction: rtl;
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .avatar-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .preview {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #704095;
+      background: linear-gradient(135deg, #29153d, #100a16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c99cff;
+      font-size: 32px;
+    }
+
+    .preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .file-label {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: 1px solid #704095;
+      background: rgba(112,64,149,.12);
+      color: #d5b4ef;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .file-label:hover {
+      background: rgba(112,64,149,.25);
+    }
+
+    #avatarInput {
+      display: none;
+    }
+
+    .hint {
+      color: #716577;
+      font-size: 12px;
+      text-align: center;
+      margin-top: 7px;
+      line-height: 1.5;
+    }
+
+    .edit-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .save {
+      background: #6e3b8f;
+      color: white;
+      border: none;
+    }
+
+    .save:hover {
+      background: #8249a5;
+    }
+
+    .cancel {
+      background: transparent;
+      color: #bba9c5;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .cancel:hover {
+      background: rgba(255,255,255,.05);
+    }
+
+    .message {
+      display: none;
+      text-align: center;
+      font-size: 13px;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.error {
+      color: #ff9d9d;
+      background: rgba(150,40,40,.12);
+    }
+
+    .message.success {
+      color: #cba9ed;
+      background: rgba(112,64,149,.12);
+    }
+
+    @media (max-width: 500px) {
+
+      .account-card {
+        padding: 30px 20px;
+      }
+
+      header {
+        padding: 0 5%;
+      }
+
+      .logo {
+        font-size: 21px;
+      }
+
+      .back {
+        font-size: 13px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      NOCTYRA
+    </div>
+
+    <a class="back" href="index.html">
+      العودة للرئيسية
+    </a>
+
+  </header>
+
+
+  <main>
+
+    <div class="account-card" id="accountCard">
+
+      <div class="loading">
+        جاري تحميل الحساب...
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script type="module">
+
+    /* =========================
+       Firebase App
+    ========================= */
+
+    import {
+      initializeApp
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    /* =========================
+       Firebase Auth
+    ========================= */
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    /* =========================
+       Firestore
+    ========================= */
+
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      setDoc,
+      runTransaction,
+      Timestamp
+    } from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    /* =========================
+       Firebase Config
+    ========================= */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyAvVSfxR6ecsWU2lGUlHDJgdH3hktrZjGY",
+
+      authDomain:
+        "noctyra-4b71b.firebaseapp.com",
+
+      projectId:
+        "noctyra-4b71b",
+
+      storageBucket:
+        "noctyra-4b71b.firebasestorage.app",
+
+      messagingSenderId:
+        "240877556023",
+
+      appId:
+        "1:240877556023:web:99529c91607902b8414ab2",
+
+      measurementId:
+        "G-DYP839YDNK"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+    const auth =
+      getAuth(app);
+
+    const db =
+      getFirestore(app);
+
+
+    const accountCard =
+      document.getElementById("accountCard");
+
+
+    let currentUser = null;
+
+    let currentDisplayName = "";
+
+    let currentUsername = "";
+
+    let currentAvatar = "";
+
+    let currentBio = "";
+
+    let currentJoinedAt = null;
+
+
+    /* =========================
+       ضغط الصورة
+    ========================= */
+
+    function compressImage(file) {
+
+      return new Promise((resolve, reject) => {
+
+        const reader =
+          new FileReader();
+
+
+        reader.onload =
+          function(event) {
+
+            const img =
+              new Image();
+
+
+            img.onload =
+              function() {
+
+                const maxSize = 400;
+
+                let width = img.width;
+
+                let height = img.height;
+
+
+                if (width > height) {
+
+                  if (width > maxSize) {
+
+                    height =
+                      Math.round(
+                        height *
+                        maxSize /
+                        width
+                      );
+
+                    width = maxSize;
+
+                  }
+
+                }
+
+                else {
+
+                  if (height > maxSize) {
+
+                    width =
+                      Math.round(
+                        width *
+                        maxSize /
+                        height
+                      );
+
+                    height = maxSize;
+
+                  }
+
+                }
+
+
+                const canvas =
+                  document.createElement("canvas");
+
+
+                canvas.width = width;
+
+                canvas.height = height;
+
+
+                const ctx =
+                  canvas.getContext("2d");
+
+
+                ctx.drawImage(
+                  img,
+                  0,
+                  0,
+                  width,
+                  height
+                );
+
+
+                resolve(
+                  canvas.toDataURL(
+                    "image/jpeg",
+                    0.75
+                  )
+                );
+
+              };
+
+
+            img.onerror = reject;
+
+            img.src =
+              event.target.result;
+
+          };
+
+
+        reader.onerror = reject;
+
+        reader.readAsDataURL(file);
+
+      });
+
+    }
+
+
+    /* =========================
+       عرض الصورة
+    ========================= */
+
+    function showAvatar(
+      imageElement,
+      letterElement,
+      avatar
+    ) {
+
+      if (
+        avatar &&
+        typeof avatar === "string" &&
+        avatar.startsWith("data:image/")
+      ) {
+
+        imageElement.src =
+          avatar;
+
+        imageElement.style.display =
+          "block";
+
+        letterElement.style.display =
+          "none";
+
+      }
+
+      else {
+
+        imageElement.removeAttribute("src");
+
+        imageElement.style.display =
+          "none";
+
+        letterElement.style.display =
+          "block";
+
+      }
+
+    }
+
+
+    /* =========================
+       الرسائل
+    ========================= */
+
+    function showMessage(
+      element,
+      text,
+      type
+    ) {
+
+      element.textContent =
+        text;
+
+      element.className =
+        "message show " + type;
+
+    }
+
+
+    /* =========================
+       الأشهر
+    ========================= */
+
+    const arabicMonths = [
+
+      "يناير",
+      "فبراير",
+      "مارس",
+      "أبريل",
+      "مايو",
+      "يونيو",
+      "يوليو",
+      "أغسطس",
+      "سبتمبر",
+      "أكتوبر",
+      "نوفمبر",
+      "ديسمبر"
+
+    ];
+
+
+    /* =========================
+       تاريخ الانضمام
+    ========================= */
+
+    function formatJoinedDate(value) {
+
+      if (!value) {
+
+        return "عضو في Noctyra";
+
+      }
+
+
+      let date = null;
+
+
+      if (
+        value &&
+        typeof value.toDate === "function"
+      ) {
+
+        date =
+          value.toDate();
+
+      }
+
+      else if (
+        value instanceof Date
+      ) {
+
+        date =
+          value;
+
+      }
+
+      else if (
+        typeof value === "string"
+      ) {
+
+        const parsed =
+          new Date(value);
+
+        if (!isNaN(parsed.getTime())) {
+
+          date =
+            parsed;
+
+        }
+
+      }
+
+
+      if (!date) {
+
+        return "عضو في Noctyra";
+
+      }
+
+
+      return `انضم في ${
+        arabicMonths[
+          date.getMonth()
+        ]
+      } ${
+        date.getFullYear()
+      }`;
+
+    }
+
+
+    /* =========================
+       تاريخ الحسابات القديمة
+    ========================= */
+
+    function getFallbackJoinedAt(
+      user,
+      userData
+    ) {
+
+      if (
+        userData &&
+        userData.createdAt
+      ) {
+
+        return userData.createdAt;
+
+      }
+
+
+      if (
+        user.metadata &&
+        user.metadata.creationTime
+      ) {
+
+        const date =
+          new Date(
+            user.metadata.creationTime
+          );
+
+
+        if (!isNaN(date.getTime())) {
+
+          return Timestamp.fromDate(date);
+
+        }
+
+      }
+
+
+      return null;
+
+    }
+
+
+    /* =========================
+       تحميل الحساب
+    ========================= */
+
+    async function loadAccount(user) {
+
+      currentUser =
+        user;
+
+
+      try {
+
+        const userRef =
+          doc(
+            db,
+            "users",
+            user.uid
+          );
+
+
+        const publicRef =
+          doc(
+            db,
+            "publicProfiles",
+            user.uid
+          );
+
+
+        /*
+          نقرأ users أولًا
+        */
+
+        const userSnapshot =
+          await getDoc(userRef);
+
+
+        const userData =
+          userSnapshot.exists()
+            ? userSnapshot.data()
+            : {};
+
+
+        /*
+          publicProfiles إضافي
+        */
+
+        let publicData = {};
+
+        try {
+
+          const publicSnapshot =
+            await getDoc(publicRef);
+
+
+          if (
+            publicSnapshot.exists()
+          ) {
+
+            publicData =
+              publicSnapshot.data();
+
+          }
+
+        }
+
+        catch (publicError) {
+
+          console.warn(
+            "Public profile could not be loaded:",
+            publicError
+          );
+
+        }
+
+
+        /* =========================
+           اليوزر
+        ========================= */
+
+        currentUsername =
+          userData.username ||
+          publicData.username ||
+          "";
+
+
+        /* =========================
+           اللقب
+           
+           للحسابات القديمة:
+           إذا ما فيه displayName
+           نستخدم username
+        ========================= */
+
+        currentDisplayName =
+          userData.displayName ||
+          publicData.displayName ||
+          currentUsername ||
+          "Noctyra User";
+
+
+        /* =========================
+           الصورة
+        ========================= */
+
+        currentAvatar =
+          userData.avatar ||
+          publicData.avatar ||
+          "";
+
+
+        /* =========================
+           النبذة
+        ========================= */
+
+        currentBio =
+          publicData.bio ||
+          userData.bio ||
+          "";
+
+
+        /* =========================
+           تاريخ الانضمام
+        ========================= */
+
+        currentJoinedAt =
+          publicData.joinedAt ||
+          userData.createdAt ||
+          getFallbackJoinedAt(
+            user,
+            userData
+          );
+
+
+        const displayName =
+          currentDisplayName ||
+          "Noctyra User";
+
+
+        const handle =
+          currentUsername
+            ? "@" + currentUsername
+            : "@noctyra";
+
+
+        const joinedText =
+          formatJoinedDate(
+            currentJoinedAt
+          );
+
+
+        /* =========================
+           بناء الحساب
+        ========================= */
+
+        accountCard.innerHTML = `
+
+          <div class="avatar">
+
+            <span id="avatarLetter">
+              N
+            </span>
+
+            <img
+              id="avatarImage"
+              alt="الصورة الشخصية"
+            >
+
+          </div>
+
+
+          <div
+            class="display-name"
+            id="displayNameDisplay"
+          >
+            ${escapeHtml(displayName)}
+          </div>
+
+
+          <div
+            class="handle"
+            id="handleDisplay"
+          >
+            <span>${escapeHtml(handle)}</span>
+          </div>
+
+
+          <div class="profile-info">
+
+            <div
+              class="bio ${currentBio ? "" : "empty"}"
+              id="bioDisplay"
+            >
+              ${
+                currentBio
+                  ? escapeHtml(currentBio)
+                  : "لا توجد نبذة شخصية بعد."
+              }
+            </div>
+
+
+            <div
+              class="joined"
+              id="joinedDisplay"
+            >
+              ${joinedText}
+            </div>
+
+          </div>
+
+
+          <div class="buttons">
+
+            <button
+              class="edit"
+              id="editBtn"
+            >
+              تعديل الحساب
+            </button>
+
+
+            <button
+              class="logout"
+              id="logoutBtn"
+            >
+              تسجيل الخروج
+            </button>
+
+          </div>
+
+
+          <div
+            class="edit-panel"
+            id="editPanel"
+          >
+
+            <div class="edit-title">
+              تعديل الحساب
+            </div>
+
+
+            <!-- اللقب -->
+
+            <div class="field">
+
+              <label for="displayNameInput">
+                اللقب / الاسم الظاهر
+              </label>
+
+              <input
+                type="text"
+                id="displayNameInput"
+                class="name-input"
+                maxlength="30"
+                placeholder="مثال: Sol"
+              >
+
+              <div class="hint">
+                هذا الاسم الذي سيظهر للناس في حسابك.
+              </div>
+
+            </div>
+
+
+            <!-- اليوزر -->
+
+            <div class="field">
+
+              <label for="usernameInput">
+                اسم المستخدم
+              </label>
+
+
+              <div class="username-wrapper">
+
+                <span class="username-at">
+                  @
+                </span>
+
+                <input
+                  type="text"
+                  id="usernameInput"
+                  class="username-input"
+                  maxlength="20"
+                  placeholder="naya_01"
+                  autocomplete="off"
+                >
+
+              </div>
+
+
+              <div class="hint">
+                3 إلى 20 حرفًا — أحرف إنجليزية وأرقام و _
+              </div>
+
+            </div>
+
+
+            <!-- النبذة -->
+
+            <div class="field">
+
+              <label for="bioInput">
+                النبذة الشخصية
+              </label>
+
+              <textarea
+                id="bioInput"
+                maxlength="160"
+                placeholder="اكتبي نبذة قصيرة عنك..."
+              ></textarea>
+
+              <div class="hint">
+                بحد أقصى 160 حرفًا
+              </div>
+
+            </div>
+
+
+            <!-- الصورة -->
+
+            <div class="field">
+
+              <label>
+                الصورة الشخصية
+              </label>
+
+
+              <div class="avatar-upload">
+
+                <div class="preview">
+
+                  <span id="previewLetter">
+                    N
+                  </span>
+
+                  <img
+                    id="previewImage"
+                    alt="معاينة الصورة"
+                  >
+
+                </div>
+
+
+                <label
+                  class="file-label"
+                  for="avatarInput"
+                >
+                  تغيير الصورة
+                </label>
+
+
+                <input
+                  type="file"
+                  id="avatarInput"
+                  accept="image/*"
+                >
+
+              </div>
+
+            </div>
+
+
+            <div class="edit-actions">
+
+              <button
+                class="save"
+                id="saveBtn"
+              >
+                حفظ التغييرات
+              </button>
+
+
+              <button
+                class="cancel"
+                id="cancelBtn"
+                type="button"
+              >
+                إلغاء
+              </button>
+
+            </div>
+
+
+            <div
+              class="message"
+              id="message"
+            ></div>
+
+          </div>
+
+        `;
+
+
+        /* =========================
+           العناصر
+        ========================= */
+
+        const avatarImage =
+          document.getElementById(
+            "avatarImage"
+          );
+
+
+        const avatarLetter =
+          document.getElementById(
+            "avatarLetter"
+          );
+
+
+        const displayNameDisplay =
+          document.getElementById(
+            "displayNameDisplay"
+          );
+
+
+        const handleDisplay =
+          document.getElementById(
+            "handleDisplay"
+          );
+
+
+        const bioDisplay =
+          document.getElementById(
+            "bioDisplay"
+          );
+
+
+        const editBtn =
+          document.getElementById(
+            "editBtn"
+          );
+
+
+        const editPanel =
+          document.getElementById(
+            "editPanel"
+          );
+
+
+        const logoutBtn =
+          document.getElementById(
+            "logoutBtn"
+          );
+
+
+        const displayNameInput =
+          document.getElementById(
+            "displayNameInput"
+          );
+
+
+        const usernameInput =
+          document.getElementById(
+            "usernameInput"
+          );
+
+
+        const bioInput =
+          document.getElementById(
+            "bioInput"
+          );
+
+
+        const avatarInput =
+          document.getElementById(
+            "avatarInput"
+          );
+
+
+        const previewImage =
+          document.getElementById(
+            "previewImage"
+          );
+
+
+        const previewLetter =
+          document.getElementById(
+            "previewLetter"
+          );
+
+
+        const saveBtn =
+          document.getElementById(
+            "saveBtn"
+          );
+
+
+        const cancelBtn =
+          document.getElementById(
+            "cancelBtn"
+          );
+
+
+        const message =
+          document.getElementById(
+            "message"
+          );
+
+
+        /* =========================
+           تعبئة التعديل
+        ========================= */
+
+        displayNameInput.value =
+          currentDisplayName;
+
+
+        usernameInput.value =
+          currentUsername;
+
+
+        bioInput.value =
+          currentBio;
+
+
+        showAvatar(
+          avatarImage,
+          avatarLetter,
+          currentAvatar
+        );
+
+
+        showAvatar(
+          previewImage,
+          previewLetter,
+          currentAvatar
+        );
+
+
+        /* =========================
+           فتح التعديل
+        ========================= */
+
+        editBtn.addEventListener(
+          "click",
+          () => {
+
+            editPanel.classList.add(
+              "show"
+            );
+
+            editBtn.style.display =
+              "none";
+
+            displayNameInput.focus();
+
+          }
+        );
+
+
+        /* =========================
+           تغيير الصورة
+        ========================= */
+
+        avatarInput.addEventListener(
+          "change",
+          async () => {
+
+            const file =
+              avatarInput.files[0];
+
+
+            if (!file) {
+
+              return;
+
+            }
+
+
+            if (
+              !file.type.startsWith("image/")
+            ) {
+
+              showMessage(
+                message,
+                "اختاري ملف صورة فقط.",
+                "error"
+              );
+
+
+              avatarInput.value =
+                "";
+
+
+              return;
+
+            }
+
+
+            try {
+
+              const compressed =
+                await compressImage(
+                  file
+                );
+
+
+              previewImage.src =
+                compressed;
+
+
+              previewImage.style.display =
+                "block";
+
+
+              previewLetter.style.display =
+                "none";
+
+
+              message.className =
+                "message";
+
+
+            }
+
+            catch (error) {
+
+              console.error(error);
+
+
+              showMessage(
+                message,
+                "ما قدرت أقرأ الصورة.",
+                "error"
+              );
+
+            }
+
+          }
+        );
+
+
+        /* =========================
+           إلغاء
+        ========================= */
+
+        cancelBtn.addEventListener(
+          "click",
+          () => {
+
+            editPanel.classList.remove(
+              "show"
+            );
+
+
+            editBtn.style.display =
+              "block";
+
+
+            displayNameInput.value =
+              currentDisplayName;
+
+
+            usernameInput.value =
+              currentUsername;
+
+
+            bioInput.value =
+              currentBio;
+
+
+            avatarInput.value =
+              "";
+
+
+            showAvatar(
+              previewImage,
+              previewLetter,
+              currentAvatar
+            );
+
+
+            message.className =
+              "message";
+
+
+            message.textContent =
+              "";
+
+          }
+        );
+
+
+        /* =========================
+           حفظ التغييرات
+        ========================= */
+
+        saveBtn.addEventListener(
+          "click",
+          async () => {
+
+            const newDisplayName =
+              displayNameInput.value.trim();
+
+
+            const newUsername =
+              usernameInput.value.trim();
+
+
+            const newBio =
+              bioInput.value.trim();
+
+
+            /* =========================
+               التحقق من اللقب
+            ========================= */
+
+            if (!newDisplayName) {
+
+              showMessage(
+                message,
+                "اكتبي لقبًا أو اسمًا ظاهرًا.",
+                "error"
+              );
+
+              return;
+
+            }
+
+
+            if (
+              newDisplayName.length > 30
+            ) {
+
+              showMessage(
+                message,
+                "اللقب طويل جدًا. الحد الأقصى 30 حرفًا.",
+                "error"
+              );
+
+              return;
+
+            }
+
+
+            /* =========================
+               التحقق من اليوزر
+            ========================= */
+
+            if (
+              !/^[A-Za-z0-9_]{3,20}$/.test(
+                newUsername
+              )
+            ) {
+
+              showMessage(
+                message,
+                "اليوزر لازم يكون من 3 إلى 20 حرفًا، ويحتوي على أحرف إنجليزية أو أرقام أو _.",
+                "error"
+              );
+
+              return;
+
+            }
+
+
+            if (
+              newBio.length > 160
+            ) {
+
+              showMessage(
+                message,
+                "النبذة طويلة جدًا. الحد الأقصى 160 حرفًا.",
+                "error"
+              );
+
+              return;
+
+            }
+
+
+            const oldUsername =
+              currentUsername.trim();
+
+
+            const oldLower =
+              oldUsername.toLowerCase();
+
+
+            const newLower =
+              newUsername.toLowerCase();
+
+
+            saveBtn.disabled =
+              true;
+
+
+            saveBtn.textContent =
+              "جاري الحفظ...";
+
+
+            try {
+
+              let newAvatar =
+                currentAvatar;
+
+
+              /* =========================
+                 صورة جديدة
+              ========================= */
+
+              if (
+                avatarInput.files.length > 0
+              ) {
+
+                newAvatar =
+                  await compressImage(
+                    avatarInput.files[0]
+                  );
+
+              }
+
+
+              const userRef =
+                doc(
+                  db,
+                  "users",
+                  currentUser.uid
+                );
+
+
+              const publicRef =
+                doc(
+                  db,
+                  "publicProfiles",
+                  currentUser.uid
+                );
+
+
+              /* =========================
+                 تغيير اليوزر
+              ========================= */
+
+              if (
+                newLower !== oldLower
+              ) {
+
+                const newUsernameRef =
+                  doc(
+                    db,
+                    "usernames",
+                    newLower
+                  );
+
+
+                const oldUsernameRef =
+                  oldUsername
+                    ? doc(
+                        db,
+                        "usernames",
+                        oldLower
+                      )
+                    : null;
+
+
+                await runTransaction(
+                  db,
+                  async (transaction) => {
+
+                    /* القراءات */
+
+                    const newUsernameSnapshot =
+                      await transaction.get(
+                        newUsernameRef
+                      );
+
+
+                    let oldUsernameSnapshot =
+                      null;
+
+
+                    if (
+                      oldUsernameRef
+                    ) {
+
+                      oldUsernameSnapshot =
+                        await transaction.get(
+                          oldUsernameRef
+                        );
+
+                    }
+
+
+                    /* =========================
+                       التأكد من عدم استخدام اليوزر
+                    ========================= */
+
+                    if (
+                      newUsernameSnapshot.exists()
+                    ) {
+
+                      const owner =
+                        newUsernameSnapshot
+                          .data()
+                          .uid;
+
+
+                      if (
+                        owner !==
+                        currentUser.uid
+                      ) {
+
+                        throw new Error(
+                          "USERNAME_TAKEN"
+                        );
+
+                      }
+
+                    }
+
+
+                    /* =========================
+                       حجز الجديد
+                    ========================= */
+
+                    transaction.set(
+                      newUsernameRef,
+                      {
+                        uid:
+                          currentUser.uid,
+
+                        username:
+                          newUsername
+                      }
+                    );
+
+
+                    /* =========================
+                       حذف القديم
+                    ========================= */
+
+                    if (
+                      oldUsernameRef &&
+                      oldUsernameSnapshot &&
+                      oldUsernameSnapshot.exists() &&
+                      oldUsernameSnapshot.data().uid ===
+                        currentUser.uid
+                    ) {
+
+                      transaction.delete(
+                        oldUsernameRef
+                      );
+
+                    }
+
+
+                    /* =========================
+                       تحديث users
+                    ========================= */
+
+                    transaction.set(
+                      userRef,
+                      {
+
+                        uid:
+                          currentUser.uid,
+
+                        username:
+                          newUsername,
+
+                        displayName:
+                          newDisplayName,
+
+                        avatar:
+                          newAvatar
+
+                      },
+                      {
+                        merge: true
+                      }
+                    );
+
+
+                    /* =========================
+                       تحديث الملف العام
+                    ========================= */
+
+                    transaction.set(
+                      publicRef,
+                      {
+
+                        username:
+                          newUsername,
+
+                        displayName:
+                          newDisplayName,
+
+                        avatar:
+                          newAvatar,
+
+                        bio:
+                          newBio
+
+                      },
+                      {
+                        merge: true
+                      }
+                    );
+
+                  }
+                );
+
+              }
+
+
+              /* =========================
+                 اليوزر ما تغير
+              ========================= */
+
+              else {
+
+                await setDoc(
+                  userRef,
+                  {
+
+                    uid:
+                      currentUser.uid,
+
+                    username:
+                      newUsername,
+
+                    displayName:
+                      newDisplayName,
+
+                    avatar:
+                      newAvatar
+
+                  },
+                  {
+                    merge: true
+                  }
+                );
+
+
+                await setDoc(
+                  publicRef,
+                  {
+
+                    username:
+                      newUsername,
+
+                    displayName:
+                      newDisplayName,
+
+                    avatar:
+                      newAvatar,
+
+                    bio:
+                      newBio
+
+                  },
+                  {
+                    merge: true
+                  }
+                );
+
+              }
+
+
+              /* =========================
+                 تحديث المتغيرات
+              ========================= */
+
+              currentDisplayName =
+                newDisplayName;
+
+
+              currentUsername =
+                newUsername;
+
+
+              currentAvatar =
+                newAvatar;
+
+
+              currentBio =
+                newBio;
+
+
+              /* =========================
+                 تحديث الشاشة
+              ========================= */
+
+              displayNameDisplay.textContent =
+                newDisplayName;
+
+
+              handleDisplay.innerHTML =
+                `<span>@${escapeHtml(
+                  newUsername
+                )}</span>`;
+
+
+              bioDisplay.textContent =
+                newBio ||
+                "لا توجد نبذة شخصية بعد.";
+
+
+              bioDisplay.className =
+                "bio " +
+                (
+                  newBio
+                    ? ""
+                    : "empty"
+                );
+
+
+              showAvatar(
+                avatarImage,
+                avatarLetter,
+                newAvatar
+              );
+
+
+              showAvatar(
+                previewImage,
+                previewLetter,
+                newAvatar
+              );
+
+
+              avatarInput.value =
+                "";
+
+
+              showMessage(
+                message,
+                "تم حفظ تغييرات الحساب ✦",
+                "success"
+              );
+
+
+              setTimeout(
+                () => {
+
+                  editPanel.classList.remove(
+                    "show"
+                  );
+
+
+                  editBtn.style.display =
+                    "block";
+
+
+                  message.className =
+                    "message";
+
+
+                  message.textContent =
+                    "";
+
+                },
+                1200
+              );
+
+            }
+
+
+            catch (error) {
+
+              console.error(error);
+
+
+              if (
+                error.message ===
+                "USERNAME_TAKEN"
+              ) {
+
+                showMessage(
+                  message,
+                  "هذا اليوزر مستخدم بالفعل، اختاري يوزر ثاني.",
+                  "error"
+                );
+
+              }
+
+              else if (
+                error.code ===
+                "permission-denied"
+              ) {
+
+                showMessage(
+                  message,
+                  "ما عندك صلاحية لتعديل الحساب. تأكدي من قواعد Firebase.",
+                  "error"
+                );
+
+              }
+
+              else {
+
+                showMessage(
+                  message,
+                  "حدث خطأ أثناء حفظ التغييرات.",
+                  "error"
+                );
+
+              }
+
+            }
+
+
+            finally {
+
+              saveBtn.disabled =
+                false;
+
+
+              saveBtn.textContent =
+                "حفظ التغييرات";
+
+            }
+
+          }
+        );
+
+
+        /* =========================
+           تسجيل الخروج
+        ========================= */
+
+        logoutBtn.addEventListener(
+          "click",
+          async () => {
+
+            try {
+
+              await signOut(auth);
+
+              window.location.href =
+                "index.html";
+
+            }
+
+            catch (error) {
+
+              console.error(error);
+
+              alert(
+                "حدث خطأ أثناء تسجيل الخروج"
+              );
+
+            }
+
+          }
+        );
+
+      }
+
+
+      catch (error) {
+
+        console.error(
+          "Account loading error:",
+          error
+        );
+
+
+        accountCard.innerHTML = `
+
+          <div class="loading">
+
+            تعذر تحميل بيانات الحساب.
+
+            <br><br>
+
+            تأكدي من اتصال Firebase.
+
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    /* =========================
+       حماية النصوص
+    ========================= */
+
+    function escapeHtml(value) {
+
+      return String(value)
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /* =========================
+       التأكد من تسجيل الدخول
+    ========================= */
+
+    onAuthStateChanged(
+      auth,
+      (user) => {
+
+        if (!user) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+        loadAccount(user);
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>
