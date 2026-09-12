@@ -1,0 +1,4078 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="google-site-verification"
+    content="AMS99bNLyT0Pfr4WSMihTu0iCtrI5ZTS04AEkqho3tQ">
+
+  <title>Noctyra | رفع فصل</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #09090c;
+      color: #eee;
+      min-height: 100vh;
+      transition: .3s;
+    }
+
+    body.light {
+      background: #f4f3f6;
+      color: #18151c;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      height: 72px;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(155, 114, 189, .15);
+      background: rgba(9, 9, 12, .95);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+
+    body.light header {
+      background: rgba(255, 255, 255, .94);
+      border-bottom-color: rgba(100, 70, 130, .15);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .logo span {
+      color: #9b72bd;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .theme-btn,
+    .menu-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(155, 114, 189, .25);
+      background: #121217;
+      color: #eee;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    body.light .theme-btn,
+    body.light .menu-btn {
+      background: #fff;
+      color: #222;
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    /* =========================
+       SIDE MENU
+    ========================= */
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .55);
+      display: none;
+      z-index: 90;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -330px;
+      width: 310px;
+      height: 100vh;
+      background: #0d0d12;
+      border-left: 1px solid rgba(155, 114, 189, .2);
+      z-index: 100;
+      transition: .3s ease;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    body.light .side-menu {
+      background: #fff;
+    }
+
+    .side-menu.open {
+      right: 0;
+    }
+
+    .side-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .side-logo {
+      font-weight: 900;
+      letter-spacing: 3px;
+      font-size: 20px;
+    }
+
+    .side-logo span {
+      color: #9b72bd;
+    }
+
+    .close-menu {
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .user-box {
+      background: #141419;
+      border: 1px solid rgba(155, 114, 189, .18);
+      border-radius: 15px;
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+
+    body.light .user-box {
+      background: #f5f3f7;
+    }
+
+    .user-name {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .user-handle {
+      color: #9b72bd;
+      font-size: 13px;
+    }
+
+    .side-links {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .side-links a {
+      padding: 13px 14px;
+      border-radius: 11px;
+      transition: .2s;
+      color: #ccc;
+    }
+
+    body.light .side-links a {
+      color: #444;
+    }
+
+    .side-links a:hover {
+      background: rgba(155, 114, 189, .12);
+      color: #c39be8;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    main {
+      width: min(1000px, calc(100% - 30px));
+      margin: 45px auto 80px;
+    }
+
+    .page-title {
+      margin-bottom: 30px;
+    }
+
+    .page-title h1 {
+      font-size: 30px;
+      margin-bottom: 9px;
+    }
+
+    .page-title p {
+      color: #999;
+      line-height: 1.8;
+    }
+
+    body.light .page-title p {
+      color: #666;
+    }
+
+    .card {
+      background: #101014;
+      border: 1px solid rgba(155, 114, 189, .17);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    body.light .card {
+      background: #fff;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    /* =========================
+       FORM
+    ========================= */
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    body.light label {
+      color: #555;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      background: #0b0b0f;
+      color: #eee;
+      border: 1px solid rgba(155, 114, 189, .22);
+      border-radius: 11px;
+      padding: 13px 14px;
+      outline: none;
+      transition: .2s;
+    }
+
+    body.light input,
+    body.light select,
+    body.light textarea {
+      background: #fafafa;
+      color: #222;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #9b72bd;
+      box-shadow: 0 0 0 3px rgba(155, 114, 189, .08);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       SOURCE TABS
+    ========================= */
+
+    .source-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .source-tab {
+      flex: 1;
+      border: 1px solid rgba(155, 114, 189, .22);
+      background: #0c0c10;
+      color: #aaa;
+      border-radius: 12px;
+      padding: 13px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    body.light .source-tab {
+      background: #fafafa;
+      color: #555;
+    }
+
+    .source-tab.active {
+      background: rgba(155, 114, 189, .14);
+      border-color: #9b72bd;
+      color: #cda9ed;
+    }
+
+    .source-panel {
+      display: none;
+    }
+
+    .source-panel.active {
+      display: block;
+    }
+
+    /* =========================
+       FILE UPLOAD
+    ========================= */
+
+    .drop-zone {
+      border: 1px dashed rgba(155, 114, 189, .4);
+      background: rgba(155, 114, 189, .04);
+      border-radius: 15px;
+      padding: 35px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.dragover {
+      border-color: #b98edb;
+      background: rgba(155, 114, 189, .09);
+    }
+
+    .drop-icon {
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+
+    .drop-zone strong {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .drop-zone span {
+      color: #777;
+      font-size: 13px;
+    }
+
+    #manualFiles {
+      display: none;
+    }
+
+    .selected-count {
+      margin-top: 12px;
+      color: #a982c6;
+      font-size: 13px;
+    }
+
+    /* =========================
+       DRIVE
+    ========================= */
+
+    .drive-box {
+      display: flex;
+      gap: 10px;
+    }
+
+    .drive-box input {
+      flex: 1;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 11px;
+      padding: 12px 18px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn-purple {
+      background: #8d6bb5;
+      color: white;
+    }
+
+    .btn-purple:hover {
+      background: #a47bc9;
+    }
+
+    .btn-secondary {
+      background: #1a1a21;
+      color: #ccc;
+      border: 1px solid rgba(155, 114, 189, .2);
+    }
+
+    body.light .btn-secondary {
+      background: #f1eef4;
+      color: #444;
+    }
+
+    .drive-note {
+      margin-top: 12px;
+      color: #777;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* =========================
+       PREVIEW
+    ========================= */
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .preview-header span {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .page-item {
+      position: relative;
+      background: #0a0a0d;
+      border: 1px solid rgba(155, 114, 189, .16);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    body.light .page-item {
+      background: #f7f7f7;
+    }
+
+    .page-item img {
+      width: 100%;
+      height: 175px;
+      display: block;
+      object-fit: cover;
+      background: #08080b;
+    }
+
+    .page-number {
+      padding: 7px 8px;
+      font-size: 12px;
+      color: #aaa;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .remove-page {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 28px;
+      height: 28px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, .75);
+      color: white;
+      cursor: pointer;
+    }
+
+    .empty-preview {
+      color: #666;
+      text-align: center;
+      padding: 30px;
+      border: 1px dashed rgba(155, 114, 189, .15);
+      border-radius: 12px;
+    }
+
+    /* =========================
+       SUBMIT
+    ========================= */
+
+    .submit-area {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .submit-btn {
+      min-width: 170px;
+      background: #9b72bd;
+      color: white;
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 22px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .submit-btn:hover {
+      background: #ad83cf;
+    }
+
+    .submit-btn:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .message {
+      display: none;
+      margin-top: 18px;
+      padding: 13px 15px;
+      border-radius: 11px;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.success {
+      background: rgba(70, 160, 100, .12);
+      border: 1px solid rgba(70, 160, 100, .25);
+      color: #91d5a7;
+    }
+
+    .message.error {
+      background: rgba(180, 70, 80, .12);
+      border: 1px solid rgba(180, 70, 80, .25);
+      color: #e9a0a7;
+    }
+
+    .message.info {
+      background: rgba(120, 100, 180, .12);
+      border: 1px solid rgba(120, 100, 180, .25);
+      color: #c9b7e4;
+    }
+
+    .progress {
+      height: 6px;
+      background: #1b1b20;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .progress.show {
+      display: block;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: #9b72bd;
+      transition: width .2s;
+    }
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    .login-required {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .login-required h2 {
+      margin-bottom: 10px;
+    }
+
+    .login-required p {
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      header {
+        height: 64px;
+        padding: 0 16px;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .theme-btn {
+        display: none;
+      }
+
+      main {
+        width: min(100% - 20px, 1000px);
+        margin-top: 28px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .drive-box {
+        flex-direction: column;
+      }
+
+      .source-tabs {
+        flex-direction: column;
+      }
+
+      .submit-area {
+        flex-direction: column;
+      }
+
+      .submit-btn,
+      .submit-area .btn {
+        width: 100%;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================= -->
+
+  <header>
+
+    <a href="index.html" class="logo">
+      NOCTYRA<span>.</span>
+    </a>
+
+    <div class="header-right">
+
+      <button
+        class="theme-btn"
+        id="themeBtn"
+        title="تغيير المظهر">
+        ◐
+      </button>
+
+      <button
+        class="menu-btn"
+        id="menuBtn">
+        ☰
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       SIDE MENU
+  ========================= -->
+
+  <div
+    class="overlay"
+    id="overlay">
+  </div>
+
+  <aside
+    class="side-menu"
+    id="sideMenu">
+
+    <div class="side-head">
+
+      <div class="side-logo">
+        NOCTYRA<span>.</span>
+      </div>
+
+      <button
+        class="close-menu"
+        id="closeMenu">
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+      class="user-box"
+      id="userBox">
+
+      <div
+        class="user-name"
+        id="menuUserName">
+        جاري التحميل...
+      </div>
+
+      <div
+        class="user-handle"
+        id="menuUserHandle">
+        ...
+      </div>
+
+    </div>
+
+
+    <nav class="side-links">
+
+      <a href="index.html">الرئيسية</a>
+
+      <a href="works.html">المكتبة</a>
+
+      <a href="history.html">السجل</a>
+
+      <a href="favorites.html">المفضلة</a>
+
+      <a href="teams.html">الفرق</a>
+
+      <a href="submit.html">طلب نشر عمل</a>
+
+      <a
+        href="account.html"
+        id="accountLink">
+        حسابي
+      </a>
+
+      <a
+        href="login.html"
+        id="loginLink">
+        تسجيل الدخول
+      </a>
+
+      <a href="faq.html">الأسئلة الشائعة</a>
+
+      <a href="privacy.html">الخصوصية</a>
+
+      <a href="terms.html">الشروط</a>
+
+    </nav>
+
+  </aside>
+
+
+  <!-- =========================
+       MAIN
+  ========================= -->
+
+  <main>
+
+    <div class="page-title">
+
+      <h1>رفع فصل</h1>
+
+      <p>
+        أضف فصلًا جديدًا للعمل، واختر الفريق صاحب حقوق العمل.
+      </p>
+
+    </div>
+
+
+    <div
+      id="loginRequired"
+      class="card login-required"
+      style="display:none;">
+
+      <h2>
+        تسجيل الدخول مطلوب
+      </h2>
+
+      <p>
+        لازم تسجل دخول حتى تقدر ترفع فصل.
+      </p>
+
+      <a
+        href="login.html"
+        class="btn btn-purple">
+        تسجيل الدخول
+      </a>
+
+    </div>
+
+
+    <form
+      id="chapterForm"
+      style="display:none;">
+
+
+      <!-- =========================
+           CHAPTER INFORMATION
+      ========================= -->
+
+      <section class="card">
+
+        <div class="card-title">
+          معلومات الفصل
+        </div>
+
+
+        <div class="grid">
+
+
+          <div class="field">
+
+            <label for="teamSelect">
+              الفريق *
+            </label>
+
+            <select
+              id="teamSelect"
+              required>
+
+              <option value="">
+                اختر الفريق
+              </option>
+
+            </select>
+
+            <div class="hint">
+              لازم تكون عضوًا في الفريق، والفريق لازم يملك حقوق العمل.
+            </div>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="workSelect">
+              العمل *
+            </label>
+
+            <select
+              id="workSelect"
+              required
+              disabled>
+
+              <option value="">
+                اختر الفريق أولًا
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="chapterNumber">
+              رقم الفصل *
+            </label>
+
+            <input
+              type="number"
+              id="chapterNumber"
+              min="0"
+              step="1"
+              placeholder="مثال: 1"
+              required>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="chapterTitle">
+              عنوان الفصل
+            </label>
+
+            <input
+              type="text"
+              id="chapterTitle"
+              maxlength="150"
+              placeholder="اختياري">
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="releaseDay">
+              يوم الإصدار
+            </label>
+
+            <select id="releaseDay">
+
+              <option value="">
+                بدون تحديد
+              </option>
+
+              <option value="0">
+                الأحد
+              </option>
+
+              <option value="1">
+                الإثنين
+              </option>
+
+              <option value="2">
+                الثلاثاء
+              </option>
+
+              <option value="3">
+                الأربعاء
+              </option>
+
+              <option value="4">
+                الخميس
+              </option>
+
+              <option value="5">
+                الجمعة
+              </option>
+
+              <option value="6">
+                السبت
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="releaseTime">
+              وقت الإصدار
+            </label>
+
+            <input
+              type="time"
+              id="releaseTime">
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           SOURCE
+      ========================= -->
+
+      <section class="card">
+
+        <div class="card-title">
+          صفحات الفصل
+        </div>
+
+
+        <div class="source-tabs">
+
+          <button
+            type="button"
+            class="source-tab active"
+            data-source="manual">
+            رفع الصور
+          </button>
+
+          <button
+            type="button"
+            class="source-tab"
+            data-source="drive">
+            Google Drive
+          </button>
+
+        </div>
+
+
+        <!-- MANUAL -->
+
+        <div
+          class="source-panel active"
+          id="manualPanel">
+
+          <label
+            class="drop-zone"
+            id="dropZone">
+
+            <div class="drop-icon">
+              ↑
+            </div>
+
+            <strong>
+              اختر صور صفحات الفصل
+            </strong>
+
+            <span>
+              يمكنك اختيار أكثر من صورة
+            </span>
+
+            <input
+              type="file"
+              id="manualFiles"
+              accept="image/*"
+              multiple>
+
+          </label>
+
+          <div
+            class="selected-count"
+            id="selectedCount">
+            لم يتم اختيار صفحات.
+          </div>
+
+        </div>
+
+
+        <!-- DRIVE -->
+
+        <div
+          class="source-panel"
+          id="drivePanel">
+
+          <div class="drive-box">
+
+            <input
+              type="url"
+              id="driveUrl"
+              placeholder="ضع رابط ملف Google Drive هنا">
+
+            <button
+              type="button"
+              class="btn btn-purple"
+              id="importDriveBtn">
+              استيراد
+            </button>
+
+          </div>
+
+          <div class="drive-note">
+            يدعم النظام محاولة استيراد ملفات ZIP وPDF العامة من Google Drive.
+            إذا منع Google الوصول المباشر من المتصفح، ستظهر رسالة خطأ بسبب
+            صلاحيات الوصول أو CORS.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           PREVIEW
+      ========================= -->
+
+      <section class="card">
+
+        <div class="preview-header">
+
+          <div
+            class="card-title"
+            style="margin:0;">
+            معاينة الصفحات
+          </div>
+
+          <div>
+
+            <span id="pageCount">
+              0 صفحة
+            </span>
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="sortBtn"
+              style="margin-right:8px;">
+              ترتيب بالأسماء
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="preview-grid"
+          id="previewGrid">
+
+          <div class="empty-preview">
+            ستظهر صفحات الفصل هنا.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           SUBMIT
+      ========================= -->
+
+      <section class="card">
+
+        <div class="submit-area">
+
+          <a
+            href="index.html"
+            class="btn btn-secondary">
+            إلغاء
+          </a>
+
+          <button
+            type="submit"
+            class="submit-btn"
+            id="submitBtn">
+            رفع الفصل
+          </button>
+
+        </div>
+
+
+        <div
+          class="message"
+          id="message">
+        </div>
+
+
+        <div
+          class="progress"
+          id="progress">
+
+          <div
+            class="progress-bar"
+            id="progressBar">
+          </div>
+
+        </div>
+
+      </section>
+
+    </form>
+
+  </main>
+
+
+  <!-- =========================
+       FIREBASE
+  ========================= -->
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      setPersistence,
+      browserLocalPersistence
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    import {
+      getFirestore,
+      collection,
+      getDocs,
+      addDoc,
+      doc,
+      writeBatch,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    /* =========================
+       FIREBASE CONFIG
+    ========================= */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyAvVSfxR6ecsWU2lGUlHDJgdH3hktrZjGY",
+
+      authDomain:
+        "noctyra-4b71b.firebaseapp.com",
+
+      projectId:
+        "noctyra-4b71b",
+
+      storageBucket:
+        "noctyra-4b71b.firebasestorage.app",
+
+      messagingSenderId:
+        "240877556023",
+
+      appId:
+        "1:240877556023:web:99529c91607902b8414ab2",
+
+      measurementId:
+        "G-DYP839YDNK"
+
+    };
+
+
+    const app =
+      initializeApp(
+        firebaseConfig
+      );
+
+    const auth =
+      getAuth(app);
+
+    const db =
+      getFirestore(app);
+
+
+    setPersistence(
+      auth,
+      browserLocalPersistence
+    ).catch(() => {});
+
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const chapterForm =
+      document.getElementById(
+        "chapterForm"
+      );
+
+    const loginRequired =
+      document.getElementById(
+        "loginRequired"
+      );
+
+    const teamSelect =
+      document.getElementById(
+        "teamSelect"
+      );
+
+    const workSelect =
+      document.getElementById(
+        "workSelect"
+      );
+
+    const chapterNumber =
+      document.getElementById(
+        "chapterNumber"
+      );
+
+    const chapterTitle =
+      document.getElementById(
+        "chapterTitle"
+      );
+
+    const releaseDay =
+      document.getElementById(
+        "releaseDay"
+      );
+
+    const releaseTime =
+      document.getElementById(
+        "releaseTime"
+      );
+
+    const manualFiles =
+      document.getElementById(
+        "manualFiles"
+      );
+
+    const dropZone =
+      document.getElementById(
+        "dropZone"
+      );
+
+    const selectedCount =
+      document.getElementById(
+        "selectedCount"
+      );
+
+    const previewGrid =
+      document.getElementById(
+        "previewGrid"
+      );
+
+    const pageCount =
+      document.getElementById(
+        "pageCount"
+      );
+
+    const sortBtn =
+      document.getElementById(
+        "sortBtn"
+      );
+
+    const driveUrl =
+      document.getElementById(
+        "driveUrl"
+      );
+
+    const importDriveBtn =
+      document.getElementById(
+        "importDriveBtn"
+      );
+
+    const submitBtn =
+      document.getElementById(
+        "submitBtn"
+      );
+
+    const message =
+      document.getElementById(
+        "message"
+      );
+
+    const progress =
+      document.getElementById(
+        "progress"
+      );
+
+    const progressBar =
+      document.getElementById(
+        "progressBar"
+      );
+
+
+    /* =========================
+       STATE
+    ========================= */
+
+    let currentUser = null;
+
+    let allTeams = [];
+
+    let allWorks = [];
+
+    let selectedPages = [];
+
+    let currentSource = "manual";
+
+
+    /* =========================
+       URL
+    ========================= */
+
+    const urlParams =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const requestedTeamId =
+      urlParams.get("teamId");
+
+
+    /* =========================
+       THEME
+    ========================= */
+
+    const savedTheme =
+      localStorage.getItem(
+        "noctyra-theme"
+      );
+
+
+    if (
+      savedTheme === "light"
+    ) {
+
+      document.body.classList.add(
+        "light"
+      );
+
+    }
+
+
+    document
+      .getElementById("themeBtn")
+      .addEventListener(
+        "click",
+        () => {
+
+          document.body.classList.toggle(
+            "light"
+          );
+
+          localStorage.setItem(
+            "noctyra-theme",
+            document.body.classList.contains(
+              "light"
+            )
+              ? "light"
+              : "dark"
+          );
+
+        }
+      );
+
+
+    /* =========================
+       MENU
+    ========================= */
+
+    const menuBtn =
+      document.getElementById(
+        "menuBtn"
+      );
+
+    const closeMenu =
+      document.getElementById(
+        "closeMenu"
+      );
+
+    const sideMenu =
+      document.getElementById(
+        "sideMenu"
+      );
+
+    const overlay =
+      document.getElementById(
+        "overlay"
+      );
+
+
+    function openMenu() {
+
+      sideMenu.classList.add(
+        "open"
+      );
+
+      overlay.classList.add(
+        "show"
+      );
+
+    }
+
+
+    function closeSideMenu() {
+
+      sideMenu.classList.remove(
+        "open"
+      );
+
+      overlay.classList.remove(
+        "show"
+      );
+
+    }
+
+
+    menuBtn.addEventListener(
+      "click",
+      openMenu
+    );
+
+    closeMenu.addEventListener(
+      "click",
+      closeSideMenu
+    );
+
+    overlay.addEventListener(
+      "click",
+      closeSideMenu
+    );
+
+
+    /* =========================
+       MESSAGE
+    ========================= */
+
+    function showMessage(
+      text,
+      type = "info"
+    ) {
+
+      message.textContent =
+        text;
+
+      message.className =
+        "message show " +
+        type;
+
+    }
+
+
+    function hideMessage() {
+
+      message.className =
+        "message";
+
+      message.textContent =
+        "";
+
+    }
+
+
+    /* =========================
+       AUTH
+    ========================= */
+
+    onAuthStateChanged(
+      auth,
+      async (user) => {
+
+        currentUser =
+          user;
+
+
+        if (!user) {
+
+          chapterForm.style.display =
+            "none";
+
+          loginRequired.style.display =
+            "block";
+
+
+          document.getElementById(
+            "menuUserName"
+          ).textContent =
+            "زائر";
+
+
+          document.getElementById(
+            "menuUserHandle"
+          ).textContent =
+            "غير مسجل الدخول";
+
+
+          return;
+
+        }
+
+
+        chapterForm.style.display =
+          "block";
+
+        loginRequired.style.display =
+          "none";
+
+
+        await loadUserProfile();
+
+        await loadTeams();
+
+      }
+    );
+
+
+    /* =========================
+       USER PROFILE
+    ========================= */
+
+    async function loadUserProfile() {
+
+      try {
+
+        const profileSnap =
+          await getDocs(
+            collection(
+              db,
+              "publicProfiles"
+            )
+          );
+
+
+        let foundProfile =
+          null;
+
+
+        profileSnap.forEach(
+          (item) => {
+
+            if (
+              item.id ===
+              currentUser.uid
+            ) {
+
+              foundProfile =
+                item.data();
+
+            }
+
+          }
+        );
+
+
+        const name =
+          foundProfile?.displayName ||
+          foundProfile?.name ||
+          currentUser.displayName ||
+          "مستخدم";
+
+
+        const username =
+          foundProfile?.username ||
+          foundProfile?.handle ||
+          "";
+
+
+        document.getElementById(
+          "menuUserName"
+        ).textContent =
+          name;
+
+
+        document.getElementById(
+          "menuUserHandle"
+        ).textContent =
+          username
+            ? "@" + username
+            : "";
+
+      } catch (error) {
+
+        document.getElementById(
+          "menuUserName"
+        ).textContent =
+          currentUser.displayName ||
+          "مستخدم";
+
+      }
+
+    }
+
+
+    /* =========================
+       TEAM MEMBER CHECK
+    ========================= */
+
+    function isUserTeamMember(
+      team
+    ) {
+
+      if (
+        !team ||
+        !currentUser
+      ) {
+
+        return false;
+
+      }
+
+
+      const members =
+        Array.isArray(team.members)
+          ? team.members
+          : [];
+
+
+      return members.some(
+        (member) => {
+
+          if (!member) {
+            return false;
+          }
+
+
+          if (
+            typeof member ===
+            "string"
+          ) {
+
+            return (
+              member ===
+              currentUser.uid
+            );
+
+          }
+
+
+          return (
+            member.uid ===
+            currentUser.uid
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       TEAM WORK CHECK
+    ========================= */
+
+    function teamOwnsWork(
+      team,
+      workId
+    ) {
+
+      if (
+        !team ||
+        !workId
+      ) {
+
+        return false;
+
+      }
+
+
+      const teamWorks =
+        Array.isArray(team.works)
+          ? team.works
+          : [];
+
+
+      return teamWorks.some(
+        (teamWork) => {
+
+          if (
+            typeof teamWork ===
+            "string"
+          ) {
+
+            return (
+              teamWork ===
+              workId
+            );
+
+          }
+
+
+          return (
+            teamWork?.id ===
+            workId
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       LOAD TEAMS
+    ========================= */
+
+    async function loadTeams() {
+
+      teamSelect.innerHTML =
+        '<option value="">اختر الفريق</option>';
+
+
+      allTeams = [];
+
+
+      try {
+
+        const snapshot =
+          await getDocs(
+            collection(
+              db,
+              "teams"
+            )
+          );
+
+
+        snapshot.forEach(
+          (item) => {
+
+            const data =
+              item.data();
+
+
+            /*
+             * الفريق يظهر فقط إذا كان
+             * المستخدم عضوًا فيه.
+             */
+
+            if (
+              isUserTeamMember({
+                id: item.id,
+                ...data
+              })
+            ) {
+
+              allTeams.push({
+                id: item.id,
+                ...data
+              });
+
+            }
+
+          }
+        );
+
+
+        if (
+          allTeams.length === 0
+        ) {
+
+          teamSelect.innerHTML =
+            '<option value="">ما عندك فريق</option>';
+
+
+          workSelect.innerHTML =
+            '<option value="">أنشئ/انضم لفريق أولًا</option>';
+
+
+          workSelect.disabled =
+            true;
+
+
+          showMessage(
+            "لازم تكون عضوًا في فريق حتى تقدر ترفع فصل.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        allTeams.forEach(
+          (team) => {
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              team.id;
+
+
+            option.textContent =
+              team.name ||
+              team.teamName ||
+              "فريق بدون اسم";
+
+
+            teamSelect.appendChild(
+              option
+            );
+
+          }
+        );
+
+
+        /*
+         * إذا دخل المستخدم من صفحة الفريق:
+         *
+         * upload-chapter.html?teamId=TEAM_ID
+         *
+         * يتم تحديد الفريق تلقائيًا.
+         */
+
+        if (
+          requestedTeamId
+        ) {
+
+          const requestedTeam =
+            allTeams.find(
+              team =>
+                team.id ===
+                requestedTeamId
+            );
+
+
+          if (
+            requestedTeam
+          ) {
+
+            teamSelect.value =
+              requestedTeamId;
+
+
+            await loadWorksForTeam(
+              requestedTeam
+            );
+
+          } else {
+
+            showMessage(
+              "هذا الفريق غير موجود أو أنت لست عضوًا فيه.",
+              "error"
+            );
+
+          }
+
+        }
+
+
+      } catch (error) {
+
+        console.error(
+          error
+        );
+
+
+        showMessage(
+          "تعذر تحميل الفرق. تأكدي من قواعد Firestore.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       LOAD WORKS
+    ========================= */
+
+    async function loadWorks() {
+
+      allWorks = [];
+
+
+      const snapshot =
+        await getDocs(
+          collection(
+            db,
+            "works"
+          )
+        );
+
+
+      snapshot.forEach(
+        (item) => {
+
+          allWorks.push({
+            id: item.id,
+            ...item.data()
+          });
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       LOAD WORKS FOR TEAM
+    ========================= */
+
+    async function loadWorksForTeam(
+      team
+    ) {
+
+      workSelect.innerHTML =
+        '<option value="">اختر العمل</option>';
+
+
+      workSelect.disabled =
+        true;
+
+
+      if (!team) {
+        return;
+      }
+
+
+      try {
+
+        if (
+          allWorks.length === 0
+        ) {
+
+          await loadWorks();
+
+        }
+
+
+        const availableWorks =
+          allWorks.filter(
+            (work) =>
+              teamOwnsWork(
+                team,
+                work.id
+              )
+          );
+
+
+        if (
+          availableWorks.length === 0
+        ) {
+
+          workSelect.innerHTML =
+            '<option value="">هذا الفريق لا يملك أعمالًا</option>';
+
+
+          return;
+
+        }
+
+
+        availableWorks.forEach(
+          (work) => {
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+
+            option.value =
+              work.id;
+
+
+            option.textContent =
+              work.title ||
+              work.name ||
+              work.workTitle ||
+              "عمل بدون اسم";
+
+
+            workSelect.appendChild(
+              option
+            );
+
+          }
+        );
+
+
+        workSelect.disabled =
+          false;
+
+
+      } catch (error) {
+
+        console.error(
+          error
+        );
+
+
+        showMessage(
+          "تعذر تحميل أعمال الفريق.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       TEAM CHANGE
+    ========================= */
+
+    teamSelect.addEventListener(
+      "change",
+      async () => {
+
+        const teamId =
+          teamSelect.value;
+
+
+        workSelect.innerHTML =
+          '<option value="">اختر العمل</option>';
+
+
+        workSelect.disabled =
+          true;
+
+
+        if (!teamId) {
+          return;
+        }
+
+
+        const team =
+          allTeams.find(
+            item =>
+              item.id ===
+              teamId
+          );
+
+
+        if (!team) {
+          return;
+        }
+
+
+        if (
+          !isUserTeamMember(team)
+        ) {
+
+          showMessage(
+            "أنت لست عضوًا في هذا الفريق.",
+            "error"
+          );
+
+          teamSelect.value =
+            "";
+
+          return;
+
+        }
+
+
+        await loadWorksForTeam(
+          team
+        );
+
+      }
+    );
+
+
+    /* =========================
+       SOURCE TABS
+    ========================= */
+
+    document
+      .querySelectorAll(
+        ".source-tab"
+      )
+      .forEach(
+        (tab) => {
+
+          tab.addEventListener(
+            "click",
+            () => {
+
+              currentSource =
+                tab.dataset.source;
+
+
+              document
+                .querySelectorAll(
+                  ".source-tab"
+                )
+                .forEach(
+                  item =>
+                    item.classList.remove(
+                      "active"
+                    )
+                );
+
+
+              document
+                .querySelectorAll(
+                  ".source-panel"
+                )
+                .forEach(
+                  item =>
+                    item.classList.remove(
+                      "active"
+                    )
+                );
+
+
+              tab.classList.add(
+                "active"
+              );
+
+
+              document
+                .getElementById(
+                  currentSource ===
+                  "manual"
+                    ? "manualPanel"
+                    : "drivePanel"
+                )
+                .classList.add(
+                  "active"
+                );
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =========================
+       FILE INPUT
+    ========================= */
+
+    manualFiles.addEventListener(
+      "change",
+      async (event) => {
+
+        const files =
+          Array.from(
+            event.target.files || []
+          );
+
+
+        if (!files.length) {
+          return;
+        }
+
+
+        await addImageFiles(
+          files
+        );
+
+
+        manualFiles.value =
+          "";
+
+      }
+    );
+
+
+    /* =========================
+       DRAG & DROP
+    ========================= */
+
+    dropZone.addEventListener(
+      "dragover",
+      (event) => {
+
+        event.preventDefault();
+
+        dropZone.classList.add(
+          "dragover"
+        );
+
+      }
+    );
+
+
+    dropZone.addEventListener(
+      "dragleave",
+      () => {
+
+        dropZone.classList.remove(
+          "dragover"
+        );
+
+      }
+    );
+
+
+    dropZone.addEventListener(
+      "drop",
+      async (event) => {
+
+        event.preventDefault();
+
+
+        dropZone.classList.remove(
+          "dragover"
+        );
+
+
+        const files =
+          Array.from(
+            event.dataTransfer.files ||
+            []
+          ).filter(
+            file =>
+              file.type.startsWith(
+                "image/"
+              )
+          );
+
+
+        if (
+          files.length
+        ) {
+
+          await addImageFiles(
+            files
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       ADD IMAGE FILES
+    ========================= */
+
+    async function addImageFiles(
+      files
+    ) {
+
+      hideMessage();
+
+      submitBtn.disabled =
+        true;
+
+
+      showMessage(
+        "جاري تجهيز الصور...",
+        "info"
+      );
+
+
+      try {
+
+        for (
+          let i = 0;
+          i < files.length;
+          i++
+        ) {
+
+          const file =
+            files[i];
+
+
+          const dataUrl =
+            await compressImage(
+              file
+            );
+
+
+          selectedPages.push({
+
+            name:
+              file.name,
+
+            dataUrl:
+              dataUrl
+
+          });
+
+        }
+
+
+        renderPreview();
+
+
+        showMessage(
+          "تم تجهيز " +
+          selectedPages.length +
+          " صفحة.",
+          "success"
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          error
+        );
+
+
+        showMessage(
+          "تعذر تجهيز إحدى الصور.",
+          "error"
+        );
+
+
+      } finally {
+
+        submitBtn.disabled =
+          false;
+
+      }
+
+    }
+
+
+    /* =========================
+       IMAGE COMPRESSION
+    ========================= */
+
+    function compressImage(
+      file
+    ) {
+
+      return new Promise(
+        (resolve, reject) => {
+
+          const reader =
+            new FileReader();
+
+
+          reader.onload = () => {
+
+            const img =
+              new Image();
+
+
+            img.onload = () => {
+
+              let width =
+                img.naturalWidth;
+
+
+              let height =
+                img.naturalHeight;
+
+
+              const maxWidth =
+                1400;
+
+
+              const maxHeight =
+                5000;
+
+
+              const ratio =
+                Math.min(
+                  1,
+                  maxWidth /
+                    width,
+                  maxHeight /
+                    height
+                );
+
+
+              width =
+                Math.max(
+                  1,
+                  Math.round(
+                    width *
+                    ratio
+                  )
+                );
+
+
+              height =
+                Math.max(
+                  1,
+                  Math.round(
+                    height *
+                    ratio
+                  )
+                );
+
+
+              const canvas =
+                document.createElement(
+                  "canvas"
+                );
+
+
+              canvas.width =
+                width;
+
+
+              canvas.height =
+                height;
+
+
+              const ctx =
+                canvas.getContext(
+                  "2d"
+                );
+
+
+              ctx.fillStyle =
+                "#ffffff";
+
+
+              ctx.fillRect(
+                0,
+                0,
+                width,
+                height
+              );
+
+
+              ctx.drawImage(
+                img,
+                0,
+                0,
+                width,
+                height
+              );
+
+
+              let quality =
+                .78;
+
+
+              let result =
+                canvas.toDataURL(
+                  "image/jpeg",
+                  quality
+                );
+
+
+              while (
+                result.length >
+                  850000 &&
+                quality >
+                  .35
+              ) {
+
+                quality -=
+                  .08;
+
+
+                result =
+                  canvas.toDataURL(
+                    "image/jpeg",
+                    quality
+                  );
+
+              }
+
+
+              if (
+                result.length >
+                  900000
+              ) {
+
+                reject(
+                  new Error(
+                    "الصورة كبيرة جدًا بعد الضغط"
+                  )
+                );
+
+
+                return;
+
+              }
+
+
+              resolve(
+                result
+              );
+
+            };
+
+
+            img.onerror =
+              () =>
+                reject(
+                  new Error(
+                    "تعذر قراءة الصورة"
+                  )
+                );
+
+
+            img.src =
+              reader.result;
+
+          };
+
+
+          reader.onerror =
+            () =>
+              reject(
+                new Error(
+                  "تعذر قراءة الملف"
+                )
+              );
+
+
+          reader.readAsDataURL(
+            file
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       PREVIEW
+    ========================= */
+
+    function renderPreview() {
+
+      previewGrid.innerHTML =
+        "";
+
+
+      if (
+        selectedPages.length ===
+        0
+      ) {
+
+        previewGrid.innerHTML =
+          '<div class="empty-preview">ستظهر صفحات الفصل هنا.</div>';
+
+
+        updatePageCount();
+
+
+        return;
+
+      }
+
+
+      selectedPages.forEach(
+        (page, index) => {
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+
+          item.className =
+            "page-item";
+
+
+          const img =
+            document.createElement(
+              "img"
+            );
+
+
+          img.src =
+            page.dataUrl;
+
+
+          img.alt =
+            "صفحة " +
+            (index + 1);
+
+
+          const remove =
+            document.createElement(
+              "button"
+            );
+
+
+          remove.type =
+            "button";
+
+
+          remove.className =
+            "remove-page";
+
+
+          remove.textContent =
+            "×";
+
+
+          remove.title =
+            "حذف الصفحة";
+
+
+          remove.addEventListener(
+            "click",
+            () => {
+
+              selectedPages.splice(
+                index,
+                1
+              );
+
+
+              renderPreview();
+
+            }
+          );
+
+
+          const number =
+            document.createElement(
+              "div"
+            );
+
+
+          number.className =
+            "page-number";
+
+
+          number.textContent =
+            (index + 1) +
+            " — " +
+            page.name;
+
+
+          item.appendChild(
+            img
+          );
+
+
+          item.appendChild(
+            remove
+          );
+
+
+          item.appendChild(
+            number
+          );
+
+
+          previewGrid.appendChild(
+            item
+          );
+
+        }
+      );
+
+
+      updatePageCount();
+
+    }
+
+
+    function updatePageCount() {
+
+      const count =
+        selectedPages.length;
+
+
+      pageCount.textContent =
+        count +
+        (
+          count === 1
+            ? " صفحة"
+            : " صفحات"
+        );
+
+
+      selectedCount.textContent =
+        count
+          ? "تم اختيار " +
+            count +
+            " صفحة."
+          : "لم يتم اختيار صفحات.";
+
+    }
+
+
+    /* =========================
+       SORT
+    ========================= */
+
+    sortBtn.addEventListener(
+      "click",
+      () => {
+
+        selectedPages.sort(
+          (a, b) =>
+            naturalCompare(
+              a.name,
+              b.name
+            )
+        );
+
+
+        renderPreview();
+
+      }
+    );
+
+
+    function naturalCompare(
+      a,
+      b
+    ) {
+
+      return a.localeCompare(
+        b,
+        undefined,
+        {
+          numeric: true,
+          sensitivity: "base"
+        }
+      );
+
+    }
+
+
+    /* =========================
+       DRIVE ID
+    ========================= */
+
+    function extractDriveId(
+      url
+    ) {
+
+      if (!url) {
+        return null;
+      }
+
+
+      const patterns = [
+
+        /\/file\/d\/([^/]+)/i,
+
+        /\/d\/([^/]+)/i,
+
+        /[?&]id=([^&]+)/i
+
+      ];
+
+
+      for (
+        const pattern of
+        patterns
+      ) {
+
+        const match =
+          url.match(
+            pattern
+          );
+
+
+        if (match) {
+
+          return match[1];
+
+        }
+
+      }
+
+
+      return null;
+
+    }
+
+
+    /* =========================
+       DRIVE DOWNLOAD
+    ========================= */
+
+    async function fetchDriveFile(
+      fileId
+    ) {
+
+      const urls = [
+
+        `https://drive.usercontent.google.com/download?id=${encodeURIComponent(fileId)}&export=download&confirm=t`,
+
+        `https://drive.google.com/uc?export=download&id=${encodeURIComponent(fileId)}`
+
+      ];
+
+
+      let lastError =
+        null;
+
+
+      for (
+        const url of
+        urls
+      ) {
+
+        try {
+
+          const response =
+            await fetch(
+              url,
+              {
+                method:
+                  "GET",
+                mode:
+                  "cors"
+              }
+            );
+
+
+          if (
+            !response.ok
+          ) {
+
+            throw new Error(
+              "HTTP " +
+              response.status
+            );
+
+          }
+
+
+          const blob =
+            await response.blob();
+
+
+          if (
+            blob.size === 0
+          ) {
+
+            throw new Error(
+              "الملف فارغ"
+            );
+
+          }
+
+
+          return blob;
+
+        } catch (error) {
+
+          lastError =
+            error;
+
+        }
+
+      }
+
+
+      throw (
+        lastError ||
+        new Error(
+          "تعذر الوصول إلى ملف Drive"
+        )
+      );
+
+    }
+
+
+    /* =========================
+       DRIVE IMPORT
+    ========================= */
+
+    importDriveBtn.addEventListener(
+      "click",
+      async () => {
+
+        const url =
+          driveUrl.value.trim();
+
+
+        if (!url) {
+
+          showMessage(
+            "حطي رابط Google Drive أولًا.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        const fileId =
+          extractDriveId(
+            url
+          );
+
+
+        if (!fileId) {
+
+          showMessage(
+            "رابط Google Drive غير صحيح.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        importDriveBtn.disabled =
+          true;
+
+
+        submitBtn.disabled =
+          true;
+
+
+        showMessage(
+          "جاري تحميل الملف من Google Drive...",
+          "info"
+        );
+
+
+        try {
+
+          const blob =
+            await fetchDriveFile(
+              fileId
+            );
+
+
+          const fileName =
+            getDriveFileName(
+              url,
+              blob
+            );
+
+
+          const lower =
+            fileName.toLowerCase();
+
+
+          if (
+            lower.endsWith(
+              ".zip"
+            ) ||
+            blob.type.includes(
+              "zip"
+            )
+          ) {
+
+            await importZip(
+              blob
+            );
+
+
+          } else if (
+            lower.endsWith(
+              ".pdf"
+            ) ||
+            blob.type.includes(
+              "pdf"
+            )
+          ) {
+
+            await importPdf(
+              blob
+            );
+
+
+          } else {
+
+            showMessage(
+              "الملف لازم يكون ZIP أو PDF.",
+              "error"
+            );
+
+          }
+
+
+        } catch (error) {
+
+          console.error(
+            error
+          );
+
+
+          showMessage(
+            "تعذر استيراد الملف من Google Drive. إذا كان الملف عامًا وما زالت تظهر المشكلة، فغالبًا Google يمنع الطلب المباشر من GitHub Pages بسبب CORS.",
+            "error"
+          );
+
+
+        } finally {
+
+          importDriveBtn.disabled =
+            false;
+
+
+          submitBtn.disabled =
+            false;
+
+        }
+
+      }
+    );
+
+
+    function getDriveFileName(
+      url,
+      blob
+    ) {
+
+      const type =
+        blob.type ||
+        "";
+
+
+      if (
+        type.includes(
+          "pdf"
+        )
+      ) {
+
+        return "chapter.pdf";
+
+      }
+
+
+      if (
+        type.includes(
+          "zip"
+        )
+      ) {
+
+        return "chapter.zip";
+
+      }
+
+
+      return "chapter";
+
+    }
+
+
+    /* =========================
+       ZIP IMPORT
+    ========================= */
+
+    async function importZip(
+      blob
+    ) {
+
+      showMessage(
+        "جاري استخراج صفحات ZIP...",
+        "info"
+      );
+
+
+      const JSZip =
+        await loadJSZip();
+
+
+      const zip =
+        await JSZip.loadAsync(
+          blob
+        );
+
+
+      const files =
+        Object.values(
+          zip.files
+        )
+        .filter(
+          file =>
+            !file.dir &&
+            /\.(jpg|jpeg|png|webp)$/i
+              .test(
+                file.name
+              )
+        )
+        .sort(
+          (a, b) =>
+            naturalCompare(
+              a.name,
+              b.name
+            )
+        );
+
+
+      if (
+        files.length ===
+        0
+      ) {
+
+        throw new Error(
+          "لم يتم العثور على صور داخل ZIP"
+        );
+
+      }
+
+
+      for (
+        let i = 0;
+        i < files.length;
+        i++
+      ) {
+
+        const file =
+          files[i];
+
+
+        const blobPage =
+          await file.async(
+            "blob"
+          );
+
+
+        const imageFile =
+          new File(
+            [
+              blobPage
+            ],
+            file.name,
+            {
+              type:
+                blobPage.type ||
+                "image/jpeg"
+            }
+          );
+
+
+        const dataUrl =
+          await compressImage(
+            imageFile
+          );
+
+
+        selectedPages.push({
+
+          name:
+            file.name,
+
+          dataUrl:
+            dataUrl
+
+        });
+
+
+        const percent =
+          Math.round(
+            (
+              (i + 1) /
+              files.length
+            ) *
+            100
+          );
+
+
+        progress.classList.add(
+          "show"
+        );
+
+
+        progressBar.style.width =
+          percent +
+          "%";
+
+      }
+
+
+      renderPreview();
+
+
+      progress.classList.remove(
+        "show"
+      );
+
+
+      progressBar.style.width =
+        "0%";
+
+
+      showMessage(
+        "تم استيراد " +
+        files.length +
+        " صفحة من ZIP.",
+        "success"
+      );
+
+    }
+
+
+    async function loadJSZip() {
+
+      if (
+        window.__NoctyraJSZip
+      ) {
+
+        return window.__NoctyraJSZip;
+
+      }
+
+
+      const module =
+        await import(
+          "https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm"
+        );
+
+
+      window.__NoctyraJSZip =
+        module.default ||
+        module;
+
+
+      return window.__NoctyraJSZip;
+
+    }
+
+
+    /* =========================
+       PDF IMPORT
+    ========================= */
+
+    async function importPdf(
+      blob
+    ) {
+
+      showMessage(
+        "جاري تجهيز صفحات PDF...",
+        "info"
+      );
+
+
+      const pdfjsLib =
+        await loadPDFJS();
+
+
+      const arrayBuffer =
+        await blob.arrayBuffer();
+
+
+      const pdf =
+        await pdfjsLib
+          .getDocument({
+            data:
+              arrayBuffer
+          })
+          .promise;
+
+
+      for (
+        let i = 1;
+        i <= pdf.numPages;
+        i++
+      ) {
+
+        const page =
+          await pdf.getPage(
+            i
+          );
+
+
+        const originalViewport =
+          page.getViewport({
+            scale:
+              1
+          });
+
+
+        const maxWidth =
+          1400;
+
+
+        const scale =
+          Math.min(
+            2,
+            maxWidth /
+              originalViewport.width
+          );
+
+
+        const viewport =
+          page.getViewport({
+            scale
+          });
+
+
+        const canvas =
+          document.createElement(
+            "canvas"
+          );
+
+
+        canvas.width =
+          Math.round(
+            viewport.width
+          );
+
+
+        canvas.height =
+          Math.round(
+            viewport.height
+          );
+
+
+        const ctx =
+          canvas.getContext(
+            "2d"
+          );
+
+
+        await page.render({
+          canvasContext:
+            ctx,
+          viewport:
+            viewport
+        }).promise;
+
+
+        let quality =
+          .78;
+
+
+        let dataUrl =
+          canvas.toDataURL(
+            "image/jpeg",
+            quality
+          );
+
+
+        while (
+          dataUrl.length >
+            850000 &&
+          quality >
+            .35
+        ) {
+
+          quality -=
+            .08;
+
+
+          dataUrl =
+            canvas.toDataURL(
+              "image/jpeg",
+              quality
+            );
+
+        }
+
+
+        if (
+          dataUrl.length >
+            900000
+        ) {
+
+          throw new Error(
+            "إحدى صفحات PDF كبيرة جدًا"
+          );
+
+        }
+
+
+        selectedPages.push({
+
+          name:
+            `page-${String(i).padStart(3, "0")}.jpg`,
+
+          dataUrl:
+            dataUrl
+
+        });
+
+
+        const percent =
+          Math.round(
+            (
+              i /
+              pdf.numPages
+            ) *
+            100
+          );
+
+
+        progress.classList.add(
+          "show"
+        );
+
+
+        progressBar.style.width =
+          percent +
+          "%";
+
+
+        renderPreview();
+
+      }
+
+
+      progress.classList.remove(
+        "show"
+      );
+
+
+      progressBar.style.width =
+        "0%";
+
+
+      showMessage(
+        "تم استيراد " +
+        pdf.numPages +
+        " صفحة من PDF.",
+        "success"
+      );
+
+    }
+
+
+    async function loadPDFJS() {
+
+      if (
+        window.__NoctyraPDFJS
+      ) {
+
+        return window.__NoctyraPDFJS;
+
+      }
+
+
+      const module =
+        await import(
+          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs"
+        );
+
+
+      module.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
+
+
+      window.__NoctyraPDFJS =
+        module;
+
+
+      return module;
+
+    }
+
+
+    /* =========================
+       SUBMIT CHAPTER
+    ========================= */
+
+    chapterForm.addEventListener(
+      "submit",
+      async (event) => {
+
+        event.preventDefault();
+
+        hideMessage();
+
+
+        if (!currentUser) {
+
+          showMessage(
+            "لازم تسجل دخول.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        const teamId =
+          teamSelect.value;
+
+
+        const workId =
+          workSelect.value;
+
+
+        const number =
+          chapterNumber.value.trim();
+
+
+        const title =
+          chapterTitle.value.trim();
+
+
+        if (!teamId) {
+
+          showMessage(
+            "لازم تختار فريق.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        if (!workId) {
+
+          showMessage(
+            "لازم تختار عمل يملك الفريق حقوقه.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        if (!number) {
+
+          showMessage(
+            "اكتب رقم الفصل.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        if (
+          selectedPages.length ===
+          0
+        ) {
+
+          showMessage(
+            "لازم تضيف صفحات الفصل.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        const team =
+          allTeams.find(
+            item =>
+              item.id ===
+              teamId
+          );
+
+
+        if (!team) {
+
+          showMessage(
+            "الفريق غير موجود.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        /*
+         * فحص العضوية مرة ثانية
+         * قبل إنشاء الفصل.
+         */
+
+        if (
+          !isUserTeamMember(
+            team
+          )
+        ) {
+
+          showMessage(
+            "أنت لست عضوًا في هذا الفريق.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        /*
+         * فحص حقوق العمل.
+         */
+
+        if (
+          !teamOwnsWork(
+            team,
+            workId
+          )
+        ) {
+
+          showMessage(
+            "هذا الفريق لا يملك حقوق هذا العمل.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        const work =
+          allWorks.find(
+            item =>
+              item.id ===
+              workId
+          );
+
+
+        if (!work) {
+
+          showMessage(
+            "العمل غير موجود.",
+            "error"
+          );
+
+
+          return;
+
+        }
+
+
+        submitBtn.disabled =
+          true;
+
+
+        progress.classList.add(
+          "show"
+        );
+
+
+        progressBar.style.width =
+          "5%";
+
+
+        try {
+
+          showMessage(
+            "جاري إنشاء الفصل...",
+            "info"
+          );
+
+
+          /*
+           * إنشاء وثيقة الفصل.
+           */
+
+          const chapterRef =
+            await addDoc(
+              collection(
+                db,
+                "chapters"
+              ),
+              {
+
+                workId:
+                  workId,
+
+                workTitle:
+                  work.title ||
+                  work.name ||
+                  work.workTitle ||
+                  "",
+
+                chapterNumber:
+                  Number(
+                    number
+                  ),
+
+                title:
+                  title,
+
+                teamId:
+                  teamId,
+
+                teamName:
+                  team.name ||
+                  team.teamName ||
+                  "",
+
+                createdBy:
+                  currentUser.uid,
+
+                sourceType:
+                  currentSource,
+
+                driveUrl:
+                  currentSource ===
+                  "drive"
+                    ? driveUrl.value.trim()
+                    : "",
+
+                pageCount:
+                  selectedPages.length,
+
+                releaseDay:
+                  releaseDay.value ===
+                  ""
+                    ? null
+                    : Number(
+                        releaseDay.value
+                      ),
+
+                releaseTime:
+                  releaseTime.value ||
+                  "",
+
+                createdAt:
+                  serverTimestamp(),
+
+                updatedAt:
+                  serverTimestamp()
+
+              }
+            );
+
+
+          /*
+           * حفظ الصفحات داخل:
+           *
+           * chapters/{chapterId}/pages
+           */
+
+          const total =
+            selectedPages.length;
+
+
+          let completed =
+            0;
+
+
+          /*
+           * Firestore يسمح بحد أقصى
+           * 500 عملية في Batch.
+           */
+
+          const batchSize =
+            450;
+
+
+          for (
+            let start = 0;
+            start < total;
+            start +=
+              batchSize
+          ) {
+
+            const batch =
+              writeBatch(
+                db
+              );
+
+
+            const end =
+              Math.min(
+                start +
+                  batchSize,
+                total
+              );
+
+
+            for (
+              let i = start;
+              i < end;
+              i++
+            ) {
+
+              const page =
+                selectedPages[i];
+
+
+              const pageRef =
+                doc(
+                  collection(
+                    db,
+                    "chapters",
+                    chapterRef.id,
+                    "pages"
+                  )
+                );
+
+
+              batch.set(
+                pageRef,
+                {
+
+                  pageNumber:
+                    i + 1,
+
+                  image:
+                    page.dataUrl,
+
+                  fileName:
+                    page.name,
+
+                  createdBy:
+                    currentUser.uid,
+
+                  createdAt:
+                    serverTimestamp()
+
+                }
+              );
+
+            }
+
+
+            await batch.commit();
+
+
+            completed =
+              end;
+
+
+            const percent =
+              Math.round(
+                5 +
+                (
+                  completed /
+                  total
+                ) *
+                95
+              );
+
+
+            progressBar.style.width =
+              percent +
+              "%";
+
+
+            showMessage(
+              "تم رفع " +
+              completed +
+              " من " +
+              total +
+              " صفحة...",
+              "info"
+            );
+
+          }
+
+
+          progressBar.style.width =
+            "100%";
+
+
+          showMessage(
+            "تم رفع الفصل بنجاح باسم فريق " +
+            (
+              team.name ||
+              team.teamName ||
+              ""
+            ) +
+            ".",
+            "success"
+          );
+
+
+          /*
+           * تنظيف النموذج.
+           */
+
+          selectedPages =
+            [];
+
+
+          renderPreview();
+
+
+          chapterNumber.value =
+            "";
+
+
+          chapterTitle.value =
+            "";
+
+
+          releaseDay.value =
+            "";
+
+
+          releaseTime.value =
+            "";
+
+
+          driveUrl.value =
+            "";
+
+
+        } catch (error) {
+
+          console.error(
+            error
+          );
+
+
+          showMessage(
+            getFirebaseErrorMessage(
+              error
+            ),
+            "error"
+          );
+
+
+        } finally {
+
+          submitBtn.disabled =
+            false;
+
+
+          setTimeout(
+            () => {
+
+              progress.classList.remove(
+                "show"
+              );
+
+
+              progressBar.style.width =
+                "0%";
+
+            },
+            1000
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       FIREBASE ERROR
+    ========================= */
+
+    function getFirebaseErrorMessage(
+      error
+    ) {
+
+      const code =
+        error?.code ||
+        "";
+
+
+      if (
+        code.includes(
+          "permission-denied"
+        )
+      ) {
+
+        return (
+          "تم رفض العملية من Firestore. تأكدي أن الحساب عضو في الفريق وأن الفريق يملك حقوق هذا العمل، وأن الـRules منشورة."
+        );
+
+      }
+
+
+      if (
+        code.includes(
+          "resource-exhausted"
+        )
+      ) {
+
+        return (
+          "تم تجاوز حد Firestore أثناء رفع الصفحات. الفصل كبير جدًا أو عدد الصفحات كبير."
+        );
+
+      }
+
+
+      return (
+        "حدث خطأ أثناء رفع الفصل: " +
+        (
+          error?.message ||
+          "خطأ غير معروف"
+        )
+      );
+
+    }
+
+
+    /* =========================
+       INITIAL
+    ========================= */
+
+    renderPreview();
+
+  </script>
+
+</body>
+
+</html>
